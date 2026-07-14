@@ -117,11 +117,11 @@ tr.mid-piece td{color:var(--accent2);}
       </svg>
     </div>
     <div>
-      <div class="hdr-name">IMTEYAZ PIPE TOOLS</div>
-      <div class="hdr-sub">FIELD FABRICATION TOOLKIT — FREE FOR ALL</div>
+      <div class="hdr-name">IMTEYAZ SKILL HUB</div>
+      <div class="hdr-sub">Pipe & Structure — Skill Training & Calculator</div>
     </div>
   </div>
-  <div class="hdr-badge">v5.1 · OFFLINE</div>
+  <div class="hdr-badge">v6.0 · OFFLINE</div>
 </div>
 
 <div class="nav">
@@ -129,6 +129,7 @@ tr.mid-piece td{color:var(--accent2);}
   <button class="nav-btn" onclick="showTab('ybranch',this)">⬡ Y-BRANCH</button>
   <button class="nav-btn" onclick="showTab('elbow',this)">↗ ELBOW</button>
   <button class="nav-btn" onclick="showTab('flange',this)">🔩 FLANGE</button>
+  <button class="nav-btn" onclick="showTab('reducer',this)">▷ REDUCER</button>
   <button class="nav-btn" onclick="showTab('od',this)">⌀ INCH→OD</button>
   <button class="nav-btn" onclick="showTab('trig',this)">∠ TRIG</button>
   <button class="nav-btn" onclick="showTab('offset',this)">↕ OFFSET</button>
@@ -139,6 +140,7 @@ tr.mid-piece td{color:var(--accent2);}
   <button class="nav-btn" onclick="showTab('drawing',this)">📐 DRAWING</button>
   <button class="nav-btn" onclick="showTab('fitup',this)">🎯 JOB READY</button>
   <button class="nav-btn" onclick="showTab('connect',this)">🌐 CONNECT</button>
+  <button class="nav-btn" onclick="showTab('paid',this)">🔐 PAID</button>
 </div>
 
 <div class="main">
@@ -146,6 +148,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 1: TEE CUTBACK ══ -->
 <div class="tool active" id="tab-cutback">
   <div class="sec-title">TEE BRANCH CUTBACK</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.9</b> — Factory-Made Wrought Fittings | Cylinder intersection formula</div>
   <div class="sec-desc">Equal &amp; Unequal Tee / Lateral — exact cylinder intersection formula</div>
   <div class="two-col">
     <div class="card">
@@ -195,6 +198,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 2: Y-BRANCH ══ -->
 <div class="tool" id="tab-ybranch">
   <div class="sec-title">Y-BRANCH CUTBACK</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.9</b> — Factory-Made Wrought Fittings | Lateral/Y-branch intersection</div>
   <div class="sec-desc">Lateral Y-Branch — sahi cylinder intersection se branch pipe saddle cut</div>
   <div class="two-col">
     <div class="card">
@@ -219,16 +223,28 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 3: ELBOW ══ -->
 <div class="tool" id="tab-elbow">
   <div class="sec-title">MITERED ELBOW (BAND)</div>
-  <div class="sec-desc">Multi-piece miter elbow — sahi miter angle, cutback aur CL length</div>
+  <div class="sec-desc">Multi-piece miter elbow — miter angle, cutback, divisions aur flat template pattern</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B31.3</b> — Process Piping | Miter angle formula: MA = Total° ÷ (2 × joints)</div>
   <div class="two-col">
     <div class="card">
       <div class="card-title">Input</div>
-      <div class="field"><label>Pipe OD (mm)</label><input type="number" id="e_od" value="219" min="10" max="3000" step="0.1"></div>
+      <div class="field"><label>Pipe OD (mm)</label><input type="number" id="e_od" value="219" min="10" max="3000" step="0.1" oninput="e_calc()"></div>
       <div class="field"><label>Total Elbow Angle</label>
-        <select id="e_angle"><option value="90" selected>90°</option><option value="60">60°</option><option value="45">45°</option><option value="30">30°</option><option value="22.5">22.5°</option></select>
+        <select id="e_angle" onchange="e_toggleCustom();e_calc()">
+          <option value="90" selected>90°</option>
+          <option value="60">60°</option>
+          <option value="45">45°</option>
+          <option value="30">30°</option>
+          <option value="22.5">22.5°</option>
+          <option value="custom">Custom — खुद डालें</option>
+        </select>
+      </div>
+      <div class="field" id="e_custom_field" style="display:none;">
+        <label>Custom Angle (°)</label>
+        <input type="number" id="e_custom_angle" value="75" min="1" max="180" step="0.5" oninput="e_calc()">
       </div>
       <div class="field"><label>Number of Pieces</label>
-        <select id="e_pieces">
+        <select id="e_pieces" onchange="e_calc()">
           <option value="2">2 pieces (1 joint)</option>
           <option value="3" selected>3 pieces (2 joints)</option>
           <option value="4">4 pieces (3 joints)</option>
@@ -237,14 +253,29 @@ tr.mid-piece td{color:var(--accent2);}
         </select>
       </div>
       <div class="field"><label>Centerline Radius (mm)</label>
-        <input type="number" id="e_radius" value="329" min="50" max="9000" step="1">
+        <input type="number" id="e_radius" value="329" min="50" max="9000" step="1" oninput="e_calc()">
         <div class="hint">1.5D = OD×1.5 | 3D = OD×3</div>
       </div>
+      <div class="field"><label>Divisions (Marking Points)</label>
+        <select id="e_div" onchange="e_calc()">
+          <option value="8">8 divisions</option>
+          <option value="12">12 divisions</option>
+          <option value="16" selected>16 divisions</option>
+          <option value="24">24 divisions</option>
+          <option value="32">32 divisions — बड़े pipe के लिए</option>
+        </select>
+        <div class="hint">बड़े pipe में ज़्यादा divisions = accurate template</div>
+      </div>
+      <div class="info-strip"><b id="e_divLabel">16 divisions</b> — pipe circumference ko equal parts mein baant kar mark karo</div>
       <button class="btn" onclick="e_calc()">▶ CALCULATE</button>
     </div>
     <div>
-      <div class="diag-wrap"><div class="diag-title">Mitered Elbow — Diagram</div>
+      <div class="diag-wrap"><div class="diag-title">Mitered Elbow — Side View</div>
         <svg id="e_diag" viewBox="0 0 360 200" width="100%" style="display:block;"></svg>
+      </div>
+      <div class="diag-wrap" style="margin-top:0.5rem;">
+        <div class="diag-title">Flat Template Pattern — Pipe पर mark करने का तरीका</div>
+        <svg id="e_pattern" viewBox="0 0 300 140" width="100%" style="display:block;background:rgba(0,0,0,0.2);border-radius:6px;"></svg>
       </div>
       <div id="e_out" style="margin-top:0.8rem;"><div class="empty">← Values daalein → Calculate karein</div></div>
     </div>
@@ -254,6 +285,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 4: FLANGE ══ -->
 <div class="tool" id="tab-flange">
   <div class="sec-title">FLANGE BOLT CIRCLE</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.5</b> — Pipe Flanges & Flanged Fittings | Bolt circle & spacing</div>
   <div class="sec-desc">Bolt spacing, chord length aur bolt positions</div>
   <div class="two-col">
     <div class="card">
@@ -282,6 +314,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 5: INCH→OD ══ -->
 <div class="tool" id="tab-od">
   <div class="sec-title">PIPE INCH → OD + ELBOW CENTER</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B36.10M</b> — Nominal Pipe Size (NPS) to OD conversion</div>
   <div class="sec-desc">NPS → OD (ASME B36.10) + Standard Elbow Center-to-Face distance</div>
   <div class="two-col">
     <div class="card">
@@ -335,9 +368,61 @@ tr.mid-piece td{color:var(--accent2);}
   </div>
 </div>
 
+<!-- ══ REDUCER CUTBACK ══ -->
+<div class="tool" id="tab-reducer">
+  <div class="sec-title">REDUCER CUTBACK CALCULATOR</div>
+  <div class="sec-desc">Concentric &amp; Eccentric Reducer — flat template pattern with divisions</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.9</b> — Factory-Made Wrought Fittings | Wall thickness per <b>ASME B36.10M</b></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Input</div>
+      <div class="field"><label>Reducer Type</label>
+        <select id="rd_type" onchange="rd_calc()">
+          <option value="conc">Concentric Reducer</option>
+          <option value="ecc">Eccentric Reducer</option>
+        </select>
+      </div>
+      <div class="field"><label>Large End OD (mm)</label>
+        <input type="number" id="rd_od1" value="219" min="10" max="3000" step="0.1" oninput="rd_calc()">
+      </div>
+      <div class="field"><label>Small End OD (mm)</label>
+        <input type="number" id="rd_od2" value="168" min="10" max="3000" step="0.1" oninput="rd_calc()">
+      </div>
+      <div class="field"><label>Reducer Length (mm)</label>
+        <input type="number" id="rd_len" value="250" min="50" max="3000" step="1" oninput="rd_calc()">
+        <div class="hint">ASME B16.9 standard length ya custom</div>
+      </div>
+      <div class="field"><label>Divisions (Marking Points)</label>
+        <select id="rd_div" onchange="rd_calc()">
+          <option value="8">8 divisions</option>
+          <option value="12">12 divisions</option>
+          <option value="16" selected>16 divisions</option>
+          <option value="24">24 divisions</option>
+          <option value="32">32 divisions — बड़े pipe के लिए</option>
+        </select>
+        <div class="hint">ज़्यादा divisions = accurate template</div>
+      </div>
+      <div class="info-strip"><b id="rd_divLabel">16 divisions</b> — circumference ko equal parts mein baant kar mark karo</div>
+      <button class="btn" onclick="rd_calc()">▶ CALCULATE</button>
+    </div>
+    <div>
+      <div class="diag-wrap">
+        <div class="diag-title">Side View — Reducer Shape</div>
+        <svg id="rd_diag" viewBox="0 0 300 180" width="100%" style="display:block;"></svg>
+      </div>
+      <div class="diag-wrap" style="margin-top:0.5rem;">
+        <div class="diag-title">Flat Template Pattern — Pipe पर mark करने का तरीका</div>
+        <svg id="rd_pattern" viewBox="0 0 300 140" width="100%" style="display:block;background:rgba(0,0,0,0.2);border-radius:6px;"></svg>
+      </div>
+      <div id="rd_out" style="margin-top:0.8rem;"><div class="empty">← Values daalein → Calculate karein</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ TOOL 7: OFFSET ══ -->
 <div class="tool" id="tab-offset">
   <div class="sec-title">PIPE OFFSET CALCULATOR</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B31.3</b> — Process Piping | Rolling offset geometry</div>
   <div class="sec-desc">Travel, Run, Set — kisi bhi angle par</div>
   <div class="two-col">
     <div class="card">
@@ -366,6 +451,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 8: PIPE WEIGHT ══ -->
 <div class="tool" id="tab-weight">
   <div class="sec-title">PIPE WEIGHT CALCULATOR</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B36.10M</b> (CS) / <b>B36.19M</b> (SS) — Welded & Seamless Pipe Dimensions</div>
   <div class="sec-desc">Pipe ka weight (khali + paani bharke) — kg/m aur kg/spool</div>
   <div class="two-col">
     <div class="card">
@@ -424,6 +510,7 @@ tr.mid-piece td{color:var(--accent2);}
 <!-- ══ TOOL 10: BOLT DATA ══ -->
 <div class="tool" id="tab-boltdata">
   <div class="sec-title">FLANGE BOLT DATA + ELBOW TAKE-OFF</div>
+  <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.5</b> (Flanges) | <b>ASME B16.9</b> (Elbow take-off dimensions)</div>
   <div class="sec-desc">Bolt count, size, spanner — aur elbow LR/SR take-off length</div>
   <div class="two-col">
     <div class="card">
@@ -912,9 +999,86 @@ tr.mid-piece td{color:var(--accent2);}
   </div>
 
   <div style="text-align:center;margin-top:1rem;font-size:11px;color:var(--muted);line-height:1.8;">
-    <b style="color:var(--steel);">Imteyaz Pipe Tools v5.1</b><br>
+    <b style="color:var(--steel);">Imteyaz Skill Hub v6.0</b><br>
     Free for all fabricators — हमेशा free रहेगा<br>
     © Imteyaz Ahmad — All rights reserved
+  </div>
+</div>
+
+<!-- ══ PAID CONTENT TAB ══ -->
+<div class="tool" id="tab-paid">
+  <div class="sec-title">🔐 PAID CONTENT</div>
+  <div class="sec-desc">Imteyaz Fabricator Training — Exclusive Content</div>
+
+  <!-- Lock Screen -->
+  <div id="paid-lock">
+    <div style="text-align:center;padding:1.5rem 0;">
+      <div style="font-size:48px;margin-bottom:0.8rem;">🔒</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:0.5rem;">Paid Content Area</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:1.5rem;line-height:1.7;">
+        यह section paid users के लिए है।<br>
+        Password पाने के लिए WhatsApp पर contact करें।
+      </div>
+    </div>
+
+    <!-- Password Input -->
+    <div class="card" style="margin-bottom:1rem;">
+      <div class="field">
+        <label>Password डालें</label>
+        <input type="password" id="paid-pw-input" placeholder="••••••••"
+          style="letter-spacing:4px;font-size:16px;"
+          onkeydown="if(event.key==='Enter')paidUnlock()">
+      </div>
+      <button class="btn" onclick="paidUnlock()">🔓 UNLOCK</button>
+      <div id="paid-pw-error" style="display:none;color:var(--danger);font-size:12px;margin-top:0.5rem;text-align:center;">
+        ❌ गलत password — WhatsApp पर contact करें
+      </div>
+    </div>
+
+    <!-- WhatsApp Contact -->
+    <a href="https://wa.me/966594530639?text=Paid%20Course%20ka%20password%20chahiye" target="_blank"
+       style="display:flex;align-items:center;gap:0.8rem;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:10px;padding:0.9rem;text-decoration:none;margin-bottom:0.6rem;">
+      <div style="font-size:22px;">📲</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#fff;">WhatsApp पर Password लें</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);">+966 594 530 639</div>
+      </div>
+    </a>
+
+    <!-- What's inside -->
+    <div class="card" style="margin-top:1rem;">
+      <div style="font-size:11px;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.7rem;">अंदर क्या मिलेगा</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.9;">
+        ✦ Level 5 — Isometric Drawing (Real Incidents)<br>
+        ✦ Level 6 — Structural Drawing System<br>
+        ✦ Module 5 — QC & Inspection<br>
+        ✦ Module 6 — Gulf/Site की practical बातें<br>
+        ✦ Special Videos — Field से सीधे<br>
+        ✦ PDF Notes — Download करें<br>
+        ✦ Certificate — Field Ready
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Area (after unlock) -->
+  <div id="paid-content" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div style="font-size:12px;color:var(--success);">✅ Unlocked — Welcome!</div>
+      <button onclick="paidLock()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-family:var(--font);font-size:10px;cursor:pointer;">🔒 Lock</button>
+    </div>
+
+    <!-- Loading -->
+    <div id="paid-loading" style="text-align:center;padding:2rem;color:var(--muted);font-size:12px;">
+      ⏳ Content load हो रहा है...
+    </div>
+
+    <!-- Content List -->
+    <div id="paid-list"></div>
+
+    <!-- Filter -->
+    <div id="paid-filter" style="display:none;margin-bottom:0.8rem;">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="paid-filter-btns"></div>
+    </div>
   </div>
 </div>
 
@@ -923,7 +1087,7 @@ tr.mid-piece td{color:var(--accent2);}
 </div>
 
 <div class="footer">
-  <span class="brand">IMTEYAZ PIPE TOOLS v5.0</span>
+  <span class="brand">IMTEYAZ SKILL HUB v6.0</span>
   25+ saal ke field experience se banaya gaya — har fabricator ke liye, bilkul FREE<br>
   <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span>
 </div>
@@ -938,6 +1102,13 @@ function showTab(id,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
+  // Auto-unlock if password saved
+  if(id==='paid'){
+    const saved = localStorage.getItem('ish_paid_pw');
+    if(saved && PAID_PASSWORDS.includes(saved)){
+      paidShowContent();
+    }
+  }
 }
 
 // ══════════════════════════════════════
@@ -1127,12 +1298,22 @@ function y_drawDiag(HOD,BOD,angDeg,maxH){
 // ══════════════════════════════════════
 // TOOL 3 — MITERED ELBOW
 // ══════════════════════════════════════
+function e_toggleCustom(){
+  const v=document.getElementById('e_angle').value;
+  document.getElementById('e_custom_field').style.display=v==='custom'?'block':'none';
+}
+
 function e_calc(){
   const OD=parseFloat(document.getElementById('e_od').value);
-  const totalDeg=parseFloat(document.getElementById('e_angle').value);
+  const angleVal=document.getElementById('e_angle').value;
+  const totalDeg=angleVal==='custom'
+    ? parseFloat(document.getElementById('e_custom_angle').value||0)
+    : parseFloat(angleVal);
   const pieces=parseInt(document.getElementById('e_pieces').value);
   const R=parseFloat(document.getElementById('e_radius').value);
-  if(!OD||!R||pieces<2){document.getElementById('e_out').innerHTML='<div class="empty" style="color:var(--danger);">⚠ Values sahi daalein</div>';return;}
+  const nDiv=parseInt(document.getElementById('e_div').value);
+  document.getElementById('e_divLabel').textContent=nDiv+' divisions';
+  if(!OD||!R||pieces<2||!totalDeg){document.getElementById('e_out').innerHTML='<div class="empty" style="color:var(--danger);">⚠ Values sahi daalein</div>';return;}
   const r=OD/2;
   const joints=pieces-1;
   const MA=totalDeg/(2*joints);
@@ -1141,6 +1322,14 @@ function e_calc(){
   const cbMid=2*r*Math.tan(MArad);
   const clArc=R*(totalDeg/pieces)*Math.PI/180;
   e_drawDiag(OD,totalDeg,pieces,MA,R);
+  e_drawPattern(OD,MA,cbEnd,cbMid,pieces,nDiv);
+  // Division table for one joint (end piece)
+  let divRows='';
+  for(let i=0;i<=nDiv;i++){
+    const theta=(i/nDiv)*2*Math.PI;
+    const h=cbEnd*(1-Math.cos(theta)); // height at this point
+    divRows+=`<tr><td>${i}</td><td>${Math.round((i/nDiv)*360)}°</td><td>${h.toFixed(2)}</td></tr>`;
+  }
   let tRows='';
   for(let i=1;i<=pieces;i++){
     const isEnd=(i===1||i===pieces);
@@ -1153,15 +1342,90 @@ function e_calc(){
       <div class="res-box"><div class="res-label">End piece cutback</div><div class="res-val">${cbEnd.toFixed(2)}<span class="res-unit">mm</span></div></div>
       <div class="res-box"><div class="res-label">Mid piece cutback</div><div class="res-val">${cbMid.toFixed(2)}<span class="res-unit">mm</span></div></div>
     </div>
-    <div class="tbl-panel"><div class="tbl-hdr"><span>Piece Detail</span></div><div class="tbl-scroll">
+    <div class="tbl-panel"><div class="tbl-hdr"><span>Piece Summary</span></div><div class="tbl-scroll">
     <table><thead><tr><th>#</th><th>Type</th><th>Bevels</th><th>Cutback(mm)</th><th>CL Arc(mm)</th></tr></thead><tbody>${tRows}</tbody></table></div></div>
+    <div class="tbl-panel" style="margin-top:0.5rem;"><div class="tbl-hdr"><span>📐 Division Table — End Piece (${nDiv} points)</span></div><div class="tbl-scroll">
+    <table><thead><tr><th>Pt</th><th>Angle</th><th>Height(mm)</th></tr></thead><tbody>${divRows}</tbody></table></div></div>
     <div class="formula">
-      <b>Correct formula:</b> MA = Total° ÷ (2 × joints) = ${totalDeg}° ÷ ${2*joints} = <span style="color:var(--gold);">${MA.toFixed(2)}°</span><br>
+      <b>ASME B31.3 Formula:</b> MA = ${totalDeg}° ÷ (2 × ${joints}) = <span style="color:var(--gold);">${MA.toFixed(2)}°</span><br>
       <b>End cutback</b> = r × tan(MA) = <span style="color:var(--gold);">${cbEnd.toFixed(2)} mm</span><br>
       <b>Mid cutback</b> = 2r × tan(MA) = <span style="color:var(--gold);">${cbMid.toFixed(2)} mm</span><br>
+      <b>Height at point i</b> = Cutback × (1 − cos θ)<br>
       <span style="color:var(--muted);font-size:10px;">End pieces = 1 bevel | Mid pieces = 2 bevels (dono taraf)</span>
     </div>`;
 }
+
+function e_drawPattern(OD,MA,cbEnd,cbMid,pieces,nDiv){
+  const svg=clrSvg('e_pattern');
+  const W=300,pad=22;
+  const circ=Math.PI*OD;
+  const maxCb=Math.max(cbEnd,cbMid);
+  const scale=Math.min((W-2*pad)/circ,(60)/maxCb);
+  const pW=(circ*scale)/pieces;
+  const svgH=Math.max(maxCb*scale*2+50,100);
+  svg.setAttribute('viewBox',`0 0 ${W} ${svgH}`);
+  const y0=pad+maxCb*scale;
+  const colors=['#2e86de','#f9ca24','#54a0ff','#ff6b6b','#1dd1a1','#f368e0'];
+
+  for(let p=0;p<pieces;p++){
+    const isEnd=(p===0||p===pieces-1);
+    const cb=isEnd?cbEnd:cbMid;
+    const x0=pad+p*pW;
+    const col=colors[p%colors.length];
+    const pts=nDiv;
+
+    // Top sinusoidal cut
+    let topPts=[];
+    for(let k=0;k<=pts;k++){
+      const theta=(k/pts)*2*Math.PI;
+      const h=cb*(1-Math.cos(theta))/2; // normalized to half-period per piece
+      topPts.push([x0+(k/pts)*pW, y0-h*scale]);
+    }
+
+    // Bottom cut (flat for end, sine for mid)
+    let botPts=[];
+    for(let k=0;k<=pts;k++){
+      const theta=(k/pts)*2*Math.PI;
+      const h=isEnd?0:cb*(1-Math.cos(theta))/2;
+      botPts.push([x0+(k/pts)*pW, y0+h*scale]);
+    }
+
+    // Fill
+    const fillD=`M ${topPts.map(p=>p.join(' ')).join(' L ')} L ${botPts.slice().reverse().map(p=>p.join(' ')).join(' L ')} Z`;
+    svg.appendChild(mk('path',{d:fillD,fill:`rgba(46,134,222,${p%2?'0.15':'0.06'})`,stroke:'none'}));
+
+    // Top cut line
+    svg.appendChild(mk('polyline',{points:topPts.map(p=>p.join(',')).join(' '),fill:'none',stroke:col,'stroke-width':'1.5','stroke-linejoin':'round'}));
+
+    // Bottom cut line
+    if(!isEnd){
+      svg.appendChild(mk('polyline',{points:botPts.map(p=>p.join(',')).join(' '),fill:'none',stroke:col,'stroke-width':'1','stroke-linejoin':'round','stroke-dasharray':'3 2'}));
+    }
+
+    // Division marks on top
+    for(let k=0;k<=pts;k++){
+      const [tx2,ty2]=topPts[k];
+      svg.appendChild(mk('line',{x1:tx2,y1:y0,x2:tx2,y2:ty2,stroke:'rgba(255,255,255,0.06)','stroke-width':'0.5'}));
+    }
+
+    // Vertical piece divider
+    if(p>0) svg.appendChild(mk('line',{x1:x0,y1:5,x2:x0,y2:svgH-15,stroke:'#4a6a85','stroke-width':'0.8','stroke-dasharray':'3 2'}));
+
+    // Cutback label
+    svg.appendChild(mk('line',{x1:x0+2,y1:y0-cb*scale/2,x2:x0+2,y2:y0,stroke:'#f9ca24','stroke-width':'0.8'}));
+    svg.appendChild(tx(`${cb.toFixed(0)}`,{x:x0+4,y:y0-cb*scale/4,fill:'#f9ca24','font-size':'7'}));
+
+    // Piece label
+    svg.appendChild(tx(`P${p+1} ${isEnd?'End':'Mid'}`,{x:x0+pW/2,y:svgH-5,'text-anchor':'middle',fill:col,'font-size':'7'}));
+  }
+
+  // Baseline
+  svg.appendChild(mk('line',{x1:pad,y1:y0,x2:W-pad,y2:y0,stroke:'#4a6a85','stroke-width':'1'}));
+  // Labels
+  svg.appendChild(tx('π×OD='+Math.round(Math.PI*OD)+'mm →',{x:pad,y:svgH-1,fill:'#3a5a7a','font-size':'6'}));
+  svg.appendChild(tx('← Unrolled Pipe Circumference',{x:W-pad,y:svgH-1,'text-anchor':'end',fill:'#3a5a7a','font-size':'6'}));
+}
+
 function e_drawDiag(OD,totalDeg,pieces,MA,R){
   const svg=clrSvg('e_diag');
   const cx=80,cy=170,scale=Math.min(140/R,0.55);
@@ -1401,6 +1665,181 @@ function ro_solve(){
 }
 
 // ══════════════════════════════════════
+// ══ REDUCER CUTBACK CALCULATOR ══
+function rd_calc(){
+  const type = document.getElementById('rd_type').value;
+  const OD1 = parseFloat(document.getElementById('rd_od1').value);
+  const OD2 = parseFloat(document.getElementById('rd_od2').value);
+  const L   = parseFloat(document.getElementById('rd_len').value);
+  const nDiv= parseInt(document.getElementById('rd_div').value);
+  document.getElementById('rd_divLabel').textContent = nDiv + ' divisions';
+
+  if(!OD1||!OD2||!L||OD1<=OD2){
+    document.getElementById('rd_out').innerHTML='<div class="empty" style="color:var(--danger);">⚠ OD1 > OD2 hona chahiye</div>';
+    return;
+  }
+
+  const R1=OD1/2, R2=OD2/2;
+  const halfAngle = Math.atan((R1-R2)/L) * 180/Math.PI;
+  const slantLen = Math.sqrt((R1-R2)**2 + L**2);
+  const largeCir = Math.PI*OD1;
+  const smallCir = Math.PI*OD2;
+
+  // Concentric: cone frustum unrolled = arc sector
+  // Apex distance: R_apex = R1*L/(R1-R2) from large end
+  const apexDist = R1*L/(R1-R2);
+  const R_large_slant = Math.sqrt(apexDist**2 + R1**2);
+  const R_small_slant = Math.sqrt((apexDist-L)**2 + R2**2);
+  const sectorAngle = (largeCir/R_large_slant)*(180/Math.PI);
+
+  // Division table
+  let divRows='';
+  for(let i=0;i<=nDiv;i++){
+    const theta=(i/nDiv)*2*Math.PI;
+    // For concentric: all points same height L (straight cone)
+    // For eccentric: height varies as ellipse projection
+    let h;
+    if(type==='conc'){
+      h = L; // all equal for concentric
+    } else {
+      // Eccentric: one side flat (0 offset), other side offset = R1-R2
+      const offset = R1-R2;
+      h = L + offset*Math.cos(theta); // height at this division
+    }
+    divRows+=`<tr><td>${i}</td><td>${Math.round((i/nDiv)*360)}°</td><td>${h.toFixed(2)}</td></tr>`;
+  }
+
+  rd_drawDiag(OD1,OD2,L,type);
+  rd_drawPattern(OD1,OD2,L,type,nDiv);
+
+  document.getElementById('rd_out').innerHTML=`
+    <div class="metrics4">
+      <div class="res-box"><div class="res-label">Half Angle</div><div class="res-val">${halfAngle.toFixed(2)}<span class="res-unit">°</span></div></div>
+      <div class="res-box"><div class="res-label">Slant Length</div><div class="res-val">${slantLen.toFixed(2)}<span class="res-unit">mm</span></div></div>
+      <div class="res-box"><div class="res-label">Large Circ.</div><div class="res-val">${largeCir.toFixed(2)}<span class="res-unit">mm</span></div></div>
+      <div class="res-box"><div class="res-label">Small Circ.</div><div class="res-val">${smallCir.toFixed(2)}<span class="res-unit">mm</span></div></div>
+    </div>
+    ${type==='conc'?`
+    <div class="res-box" style="margin-top:0.5rem;">
+      <div class="res-label">Pattern Sector Angle (Concentric)</div>
+      <div class="res-val">${sectorAngle.toFixed(2)}<span class="res-unit">°</span></div>
+    </div>
+    <div class="res-box">
+      <div class="res-label">Large Arc Radius (R1 slant)</div>
+      <div class="res-val">${R_large_slant.toFixed(2)}<span class="res-unit">mm</span></div>
+    </div>
+    <div class="res-box">
+      <div class="res-label">Small Arc Radius (R2 slant)</div>
+      <div class="res-val">${R_small_slant.toFixed(2)}<span class="res-unit">mm</span></div>
+    </div>`:''}
+    <div class="tbl-panel" style="margin-top:0.5rem;"><div class="tbl-hdr"><span>📐 Division Table — ${nDiv} points (${type==='conc'?'Concentric':'Eccentric'})</span></div><div class="tbl-scroll">
+    <table><thead><tr><th>Pt</th><th>Angle</th><th>Height(mm)</th></tr></thead><tbody>${divRows}</tbody></table></div></div>
+    <div class="formula">
+      <b>ASME B16.9</b> — ${type==='conc'?'Concentric':'Eccentric'} Reducer<br>
+      <b>Half angle</b> = atan((R1−R2)/L) = <span style="color:var(--gold);">${halfAngle.toFixed(2)}°</span><br>
+      <b>Slant length</b> = √((R1−R2)² + L²) = <span style="color:var(--gold);">${slantLen.toFixed(2)} mm</span><br>
+      ${type==='ecc'?`<b>Eccentric height</b> = L + (R1−R2)×cos(θ)<br>`:`<b>Pattern</b> = Cone frustum unrolled → arc sector (${sectorAngle.toFixed(1)}°)<br>`}
+      <span style="color:var(--muted);font-size:10px;">Concentric: symmetric cone | Eccentric: one side flat</span>
+    </div>`;
+}
+
+function rd_drawDiag(OD1,OD2,L,type){
+  const svg=clrSvg('rd_diag');
+  const W=300,H=180,pad=30;
+  const scaleX=Math.min((W-2*pad)/L, 1.2);
+  const scaleY=Math.min((H-2*pad)/(OD1), 1.2);
+  const sc=Math.min(scaleX,scaleY);
+  const cx=pad, cy=H/2;
+  const lx=pad, rx=pad+L*sc;
+  const R1=OD1/2*sc, R2=OD2/2*sc;
+
+  if(type==='conc'){
+    // Symmetric cone
+    svg.appendChild(mk('polygon',{points:`${lx} ${cy-R1} ${rx} ${cy-R2} ${rx} ${cy+R2} ${lx} ${cy+R1}`,fill:'rgba(46,134,222,0.12)',stroke:'#2e86de','stroke-width':'1.5'}));
+    // Center line
+    svg.appendChild(mk('line',{x1:lx,y1:cy,x2:rx,y2:cy,stroke:'#f9ca24','stroke-width':'1','stroke-dasharray':'6 3'}));
+    svg.appendChild(tx('CL',{x:rx+4,y:cy+3,fill:'#f9ca24','font-size':'9'}));
+  } else {
+    // Eccentric: flat bottom
+    const flatY=cy+R1; // flat side
+    svg.appendChild(mk('polygon',{points:`${lx} ${flatY-OD1*sc} ${rx} ${flatY-OD2*sc} ${rx} ${flatY} ${lx} ${flatY}`,fill:'rgba(46,134,222,0.12)',stroke:'#2e86de','stroke-width':'1.5'}));
+    // Flat bottom line
+    svg.appendChild(mk('line',{x1:lx,y1:flatY,x2:rx,y2:flatY,stroke:'#1dd1a1','stroke-width':'1.5'}));
+    svg.appendChild(tx('FLAT',{x:lx+(rx-lx)/2,y:flatY+10,'text-anchor':'middle',fill:'#1dd1a1','font-size':'8'}));
+  }
+
+  // Dimension labels
+  svg.appendChild(mk('line',{x1:lx,y1:H-12,x2:rx,y2:H-12,stroke:'#4a6a85','stroke-width':'0.8'}));
+  svg.appendChild(tx('L='+L+'mm',{x:lx+(rx-lx)/2,y:H-4,'text-anchor':'middle',fill:'#4a6a85','font-size':'8'}));
+  svg.appendChild(tx('OD1='+OD1,{x:lx-4,y:cy,'text-anchor':'end',fill:'#54a0ff','font-size':'8'}));
+  svg.appendChild(tx('OD2='+OD2,{x:rx+4,y:cy,fill:'#54a0ff','font-size':'8'}));
+  svg.appendChild(tx(type==='conc'?'Concentric':'Eccentric',{x:W/2,y:14,'text-anchor':'middle',fill:'#f9ca24','font-size':'9','font-weight':'bold'}));
+}
+
+function rd_drawPattern(OD1,OD2,L,type,nDiv){
+  const svg=clrSvg('rd_pattern');
+  const W=300,pad=20;
+
+  if(type==='conc'){
+    // Cone frustum unrolled = arc sector
+    const R1=OD1/2, R2=OD2/2;
+    const apexDist=R1*L/(R1-R2);
+    const R_large=Math.sqrt(apexDist**2+R1**2);
+    const R_small=Math.sqrt((apexDist-L)**2+R2**2);
+    const secAngle=(Math.PI*OD1/R_large); // radians
+    const H=140;
+    const sc=Math.min((W-2*pad)/R_large/2*0.8, H/R_large*0.9);
+    const cx=W/2, cy=10;
+    // Draw arc sector
+    const startA=-secAngle/2-Math.PI/2;
+    const endA=secAngle/2-Math.PI/2;
+    const x1=cx+R_large*sc*Math.cos(startA), y1=cy+R_large*sc*Math.sin(startA);
+    const x2=cx+R_large*sc*Math.cos(endA),   y2=cy+R_large*sc*Math.sin(endA);
+    const x3=cx+R_small*sc*Math.cos(endA),   y3=cy+R_small*sc*Math.sin(endA);
+    const x4=cx+R_small*sc*Math.cos(startA), y4=cy+R_small*sc*Math.sin(startA);
+    const lg=secAngle>Math.PI?1:0;
+    const d=`M ${x1} ${y1} A ${R_large*sc} ${R_large*sc} 0 ${lg} 1 ${x2} ${y2} L ${x3} ${y3} A ${R_small*sc} ${R_small*sc} 0 ${lg} 0 ${x4} ${y4} Z`;
+    svg.appendChild(mk('path',{d,fill:'rgba(46,134,222,0.15)',stroke:'#2e86de','stroke-width':'1.5'}));
+    // Division lines
+    for(let i=0;i<=nDiv;i++){
+      const a=startA+(i/nDiv)*secAngle;
+      svg.appendChild(mk('line',{x1:cx+R_small*sc*Math.cos(a),y1:cy+R_small*sc*Math.sin(a),x2:cx+R_large*sc*Math.cos(a),y2:cy+R_large*sc*Math.sin(a),stroke:i%(nDiv/4)===0?'#f9ca24':'rgba(255,255,255,0.2)','stroke-width':i%(nDiv/4)===0?'1':'0.5'}));
+    }
+    svg.appendChild(tx('Sector Angle: '+(secAngle*180/Math.PI).toFixed(1)+'°',{x:cx,y:130,'text-anchor':'middle',fill:'#f9ca24','font-size':'8'}));
+    svg.appendChild(tx('R_large='+R_large.toFixed(0)+'mm | R_small='+R_small.toFixed(0)+'mm',{x:cx,y:138,'text-anchor':'middle',fill:'#4a6a85','font-size':'7'}));
+  } else {
+    // Eccentric: unrolled as rectangle with variable height
+    const R1=OD1/2, R2=OD2/2;
+    const offset=R1-R2;
+    const circ=Math.PI*OD1;
+    const sc=Math.min((W-2*pad)/circ, 60/Math.max(L+offset, L));
+    const H=140;
+    const y0=H-20;
+    const pW=circ*sc;
+
+    let topPts=[], botPts=[];
+    for(let i=0;i<=nDiv;i++){
+      const theta=(i/nDiv)*2*Math.PI;
+      const h=L+offset*Math.cos(theta);
+      topPts.push([pad+(i/nDiv)*pW, y0-h*sc]);
+      botPts.push([pad+(i/nDiv)*pW, y0]);
+    }
+    // Fill
+    svg.appendChild(mk('polyline',{points:topPts.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#2e86de','stroke-width':'1.5','stroke-linejoin':'round'}));
+    svg.appendChild(mk('line',{x1:pad,y1:y0,x2:pad+pW,y2:y0,stroke:'#1dd1a1','stroke-width':'1.5'}));
+    // Division marks
+    for(let i=0;i<=nDiv;i++){
+      const [tx2,ty2]=topPts[i];
+      svg.appendChild(mk('line',{x1:tx2,y1:y0,x2:tx2,y2:ty2,stroke:i%(nDiv/4)===0?'#f9ca24':'rgba(255,255,255,0.15)','stroke-width':i%(nDiv/4)===0?'1':'0.5'}));
+      if(i%(nDiv/4)===0){
+        svg.appendChild(tx(Math.round((i/nDiv)*360)+'°',{x:tx2,y:y0+8,'text-anchor':'middle',fill:'#f9ca24','font-size':'7'}));
+      }
+    }
+    svg.appendChild(tx('← π×OD1='+Math.round(Math.PI*OD1)+'mm →',{x:pad+pW/2,y:138,'text-anchor':'middle',fill:'#4a6a85','font-size':'7'}));
+    svg.appendChild(tx('FLAT (Green line)',{x:pad+pW/2,y:y0-3,'text-anchor':'middle',fill:'#1dd1a1','font-size':'7'}));
+  }
+}
+
 // TOOL 7 — PIPE OFFSET
 // ══════════════════════════════════════
 function off_angChange(){
@@ -3414,6 +3853,117 @@ function sfSearch(){
 }
 
 // ══ DRAWING SHORTFORMS END ══
+
+// ══ PAID CONTENT SYSTEM ══
+const PAID_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVzWebvet3gUrilIp_P6KaEpCchwASiFv5ayCCo9dW318LyqiYtfhbV01_-KiLgNJLeWtTHUCndcty/pub?gid=129836425&single=true&output=csv';
+
+// Passwords — multiple allowed
+const PAID_PASSWORDS = ['ISH2024','ISH2025','IMTEYAZ786'];
+
+function paidUnlock(){
+  const pw = document.getElementById('paid-pw-input').value.trim().toUpperCase();
+  const errEl = document.getElementById('paid-pw-error');
+  if(PAID_PASSWORDS.includes(pw)){
+    localStorage.setItem('ish_paid_pw', pw);
+    errEl.style.display='none';
+    document.getElementById('paid-pw-input').value='';
+    paidShowContent();
+  } else {
+    errEl.style.display='block';
+    document.getElementById('paid-pw-input').value='';
+  }
+}
+
+function paidLock(){
+  localStorage.removeItem('ish_paid_pw');
+  document.getElementById('paid-lock').style.display='block';
+  document.getElementById('paid-content').style.display='none';
+}
+
+function paidShowContent(){
+  document.getElementById('paid-lock').style.display='none';
+  document.getElementById('paid-content').style.display='block';
+  paidLoadSheet();
+}
+
+function paidLoadSheet(){
+  const listEl = document.getElementById('paid-list');
+  const loadEl = document.getElementById('paid-loading');
+  loadEl.style.display='block';
+  listEl.innerHTML='';
+
+  fetch(PAID_SHEET_CSV)
+    .then(r=>r.text())
+    .then(csv=>{
+      loadEl.style.display='none';
+      const rows = csv.trim().split('\n').slice(1); // skip header
+      if(!rows.length || (rows.length===1 && !rows[0].trim())){
+        listEl.innerHTML='<div class="empty">Content जल्द आ रहा है — 🚀 Coming Soon</div>';
+        return;
+      }
+      const modules = {};
+      rows.forEach(row=>{
+        const cols = paidParseCSV(row);
+        if(!cols[0]) return;
+        const id=cols[0]||'', title=cols[1]||'', type=(cols[2]||'').toLowerCase().trim(), link=cols[3]||'', module=cols[4]||'General';
+        if(!modules[module]) modules[module]='';
+        modules[module] += paidCard(id,title,type,link);
+      });
+
+      let html='';
+      Object.keys(modules).forEach(mod=>{
+        html+=`<div style="font-size:10px;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin:0.8rem 0 0.4rem;">${mod}</div>`;
+        html+=modules[mod];
+      });
+      listEl.innerHTML=html;
+    })
+    .catch(()=>{
+      loadEl.style.display='none';
+      listEl.innerHTML='<div class="empty" style="color:var(--danger);">⚠ Content load नहीं हो सका। Internet check करें।</div>';
+    });
+}
+
+function paidParseCSV(row){
+  // Handle quoted CSV values
+  const result=[];
+  let cur='', inQ=false;
+  for(let i=0;i<row.length;i++){
+    const ch=row[i];
+    if(ch==='"'){inQ=!inQ;}
+    else if(ch===',' && !inQ){result.push(cur.trim());cur='';}
+    else cur+=ch;
+  }
+  result.push(cur.trim());
+  return result;
+}
+
+function paidCard(id,title,type,link){
+  const icons={'youtube':'▶','pdf':'📄','image':'🖼','video':'🎬','doc':'📝','drive':'📁'};
+  const colors={'youtube':'#ff0000','pdf':'#e74c3c','image':'#9b59b6','video':'#e67e22','doc':'#3498db','drive':'#27ae60'};
+  const labels={'youtube':'YouTube Video','pdf':'PDF Download','image':'Image/Photo','video':'Video','doc':'Document','drive':'Drive Folder'};
+  const icon=icons[type]||'📎';
+  const color=colors[type]||'#2e86de';
+  const label=labels[type]||type.toUpperCase();
+
+  return `<div onclick="paidOpenLink('${link.replace(/'/g,"\\'")}','${type}')"
+    style="display:flex;align-items:center;gap:0.8rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.8rem;margin-bottom:0.6rem;cursor:pointer;transition:border-color 0.2s;"
+    onmouseover="this.style.borderColor='${color}'" onmouseout="this.style.borderColor='var(--border)'">
+    <div style="width:36px;height:36px;background:${color}22;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">${icon}</div>
+    <div style="flex:1;">
+      <div style="font-size:13px;font-weight:700;color:var(--text);">${title}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;">${label}</div>
+    </div>
+    <div style="color:${color};font-size:16px;">→</div>
+  </div>`;
+}
+
+function paidOpenLink(link,type){
+  if(!link){return;}
+  window.open(link,'_blank');
+}
+
+// Auto-check on tab load
+const _origShowTab = typeof showTab === 'function' ? showTab : null;
 
 // ══ PWA ══
 (function(){
