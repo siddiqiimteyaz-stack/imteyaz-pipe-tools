@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMTEYAZ SKILL HUB — Pipe &amp; Structural Fabrication eBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0c2438;
+    --navy:#123754;
+    --navy-card:#173f5f;
+    --steel-line:#2e5877;
+    --paper:#f2ede0;
+    --paper-dim:#cfc7b3;
+    --gold:#c99a3d;
+    --gold-bright:#e6b954;
+    --ink:#0c2438;
+    --safety:#d1531f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy-deep);
+    color:var(--paper);
+    font-family:'Noto Sans Devanagari','Source Sans 3',sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--steel-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--steel-line) 1px, transparent 1px);
+    background-size:44px 44px;
+    background-attachment:fixed;
+    background-color:var(--navy-deep);
+  }
+  .veil{background:linear-gradient(180deg, rgba(12,36,56,0.94), rgba(12,36,56,0.88));}
+  h1,h2,h3,.eyebrow-num{font-family:'Oswald',sans-serif;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+  a{color:inherit;}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:64px 0 56px;position:relative;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
+  @media(max-width:780px){.hero-grid{grid-template-columns:1fr;}}
+
+  .kicker{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;
+    letter-spacing:.04em;color:var(--gold-bright);margin-bottom:18px;
+  }
+  .kicker .dash{width:28px;height:2px;background:var(--gold-bright);display:inline-block;}
+
+  h1.title{
+    font-size:clamp(30px,5vw,46px);
+    font-weight:600;color:var(--paper);
+    line-height:1.18;letter-spacing:.005em;margin-bottom:18px;
+  }
+  h1.title .accent{color:var(--gold-bright);}
+
+  p.lede{font-size:17px;color:var(--paper-dim);max-width:46ch;margin-bottom:30px;}
+
+  .stat-row{display:flex;gap:28px;margin-bottom:34px;flex-wrap:wrap;}
+  .stat-row div{border-left:2px solid var(--steel-line);padding-left:12px;}
+  .stat-num{font-family:'Oswald',sans-serif;font-size:26px;color:var(--gold-bright);font-weight:600;line-height:1;}
+  .stat-lbl{font-size:12.5px;color:var(--paper-dim);margin-top:4px;}
+
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn-buy{
+    background:var(--gold-bright);color:var(--navy-deep);
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;
+    padding:15px 30px;border:none;border-radius:3px;cursor:pointer;
+    text-decoration:none;display:inline-block;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-buy:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(230,185,84,.25);}
+  .price-tag{font-family:'Oswald',sans-serif;font-size:15px;color:var(--paper-dim);}
+  .price-tag strong{color:var(--paper);font-size:19px;}
+  .price-tag s{color:var(--paper-dim);opacity:.6;margin-right:6px;}
+
+  /* ---------- COVER MOCK ---------- */
+  .cover-frame{display:flex;justify-content:center;}
+  .cover{
+    width:250px;aspect-ratio:5/7;position:relative;
+    background:linear-gradient(155deg,#1a4262 0%,#0e2c44 70%);
+    border:1px solid var(--steel-line);border-radius:2px;
+    box-shadow:14px 14px 0 rgba(0,0,0,.28), 0 30px 60px rgba(0,0,0,.4);
+    padding:22px 18px;display:flex;flex-direction:column;justify-content:space-between;
+    transform:rotate(-3deg);
+  }
+  .cover .corner{position:absolute;width:14px;height:14px;border:2px solid var(--gold-bright);opacity:.7;}
+  .cover .c-tl{top:10px;left:10px;border-right:none;border-bottom:none;}
+  .cover .c-br{bottom:10px;right:10px;border-left:none;border-top:none;}
+  .cover .brand{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.12em;color:var(--gold-bright);}
+  .cover .booktitle{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--paper);line-height:1.22;margin-top:14px;}
+  .cover .tagline{font-size:12.5px;color:var(--paper-dim);margin-top:10px;font-family:'Noto Sans Devanagari',sans-serif;}
+  .cover .unitcount{font-size:11px;color:var(--gold-bright);border-top:1px solid var(--steel-line);padding-top:10px;font-family:'Oswald',sans-serif;letter-spacing:.05em;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:52px 0;border-top:1px solid var(--steel-line);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;}
+  .eyebrow-num{font-size:13px;color:var(--gold-bright);letter-spacing:.05em;min-width:34px;}
+  h2.sec-title{font-size:26px;font-weight:600;color:var(--paper);}
+
+  /* ---------- FOR WHOM ---------- */
+  .for-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:700px){.for-grid{grid-template-columns:1fr;}}
+  .for-card{background:var(--navy-card);border:1px solid var(--steel-line);padding:22px;border-radius:2px;}
+  .for-card h3{font-size:16px;color:var(--gold-bright);margin-bottom:8px;font-weight:500;}
+  .for-card p{font-size:14.5px;color:var(--paper-dim);}
+
+  /* ---------- CONTENTS / SPEC SHEET ---------- */
+  .spec-sheet{border:1px solid var(--steel-line);}
+  .spec-row{
+    display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;
+    padding:15px 18px;border-bottom:1px solid var(--steel-line);
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row:nth-child(odd){background:rgba(255,255,255,.02);}
+  .spec-unit{font-family:'Oswald',sans-serif;color:var(--gold-bright);font-size:13px;letter-spacing:.03em;}
+  .spec-name{font-size:15px;color:var(--paper);}
+  .spec-chap{font-size:12.5px;color:var(--paper-dim);white-space:nowrap;}
+
+  /* ---------- AUTHOR ---------- */
+  .author-block{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;}
+  @media(max-width:600px){.author-block{grid-template-columns:1fr;}}
+  .author-plate{
+    width:88px;height:88px;border-radius:50%;
+    background:linear-gradient(155deg,var(--gold-bright),var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:var(--navy-deep);
+  }
+  .author-block h3{font-size:18px;color:var(--paper);margin-bottom:6px;}
+  .author-block p{font-size:14.5px;color:var(--paper-dim);max-width:60ch;}
+
+  /* ---------- PRICING CTA ---------- */
+  .price-plate{
+    background:var(--navy-card);border:1px solid var(--steel-line);
+    padding:40px;text-align:center;position:relative;
+  }
+  .price-plate::before,
+  .price-plate::after{
+    content:"";position:absolute;top:10px;bottom:10px;width:1px;background:var(--steel-line);
+  }
+  .price-plate::before{left:10px;}
+  .price-plate::after{right:10px;}
+  .price-plate .big{font-family:'Oswald',sans-serif;font-size:38px;color:var(--gold-bright);font-weight:600;}
+  .price-plate .note{font-size:13.5px;color:var(--paper-dim);margin:10px 0 26px;}
+  .lock-list{list-style:none;text-align:left;max-width:380px;margin:0 auto 28px;font-size:14.5px;color:var(--paper-dim);}
+  .lock-list li{padding:6px 0;border-bottom:1px dashed var(--steel-line);}
+  .lock-list li:last-child{border-bottom:none;}
+  .lock-list li::before{content:"✓ ";color:var(--gold-bright);}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:1px solid var(--steel-line);padding:18px 0;}
+  .faq-item h3{font-size:15.5px;color:var(--paper);font-weight:500;margin-bottom:6px;}
+  .faq-item p{font-size:14px;color:var(--paper-dim);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:36px 0 50px;text-align:center;}
+  footer .wa{
+    display:inline-block;margin-top:6px;font-size:14px;color:var(--gold-bright);
+    text-decoration:none;border-bottom:1px solid var(--gold-bright);padding-bottom:1px;
+  }
+  footer .fine{font-size:12px;color:var(--paper-dim);margin-top:22px;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="veil">
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker"><span class="dash"></span>IMTEYAZ SKILL HUB — DIGITAL COURSE BOOK</div>
+      <h1 class="title">पाइप और स्ट्रक्चरल फैब्रिकेशन<br><span class="accent">Beginner से Gulf-Ready तक</span></h1>
+      <p class="lede">25+ साल के field experience से निकली एक practical Hindi-English कोर्स बुक — असली ड्रॉइंग, असली calculations, असली साइट के किस्सों के साथ।</p>
+
+      <div class="stat-row">
+        <div><div class="stat-num">9</div><div class="stat-lbl">Units</div></div>
+        <div><div class="stat-num">49</div><div class="stat-lbl">Chapters</div></div>
+        <div><div class="stat-num">812</div><div class="stat-lbl">Pages</div></div>
+        <div><div class="stat-num">25+</div><div class="stat-lbl">साल field अनुभव</div></div>
+      </div>
+
+      <div class="cta-row">
+        <a href="#PAYMENT_LINK_YAHAN_DAALEIN" class="btn-buy" id="buyBtn">पूरी बुक खरीदें →</a>
+        <span class="price-tag"><s>₹999</s> <strong>₹499</strong> · एक बार का भुगतान</span>
+      </div>
+    </div>
+
+    <div class="cover-frame">
+      <div class="cover">
+        <div class="corner c-tl"></div>
+        <div class="corner c-br"></div>
+        <div>
+          <div class="brand">IMTEYAZ SKILL HUB</div>
+          <div class="booktitle">Pipe &amp; Structural<br>Fabrication</div>
+          <div class="tagline">Beginner से Gulf-Ready तक</div>
+        </div>
+        <div class="unitcount">9 UNITS · 49 CHAPTERS</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="for">
+    <div class="sec-head"><span class="eyebrow-num">01</span><h2 class="sec-title">ये किसके लिए है</h2></div>
+    <div class="for-grid">
+      <div class="for-card">
+        <h3>नए फिटर / हेल्पर</h3>
+        <p>जो पाइप फैब्रिकेशन में करियर शुरू कर रहे हैं और बेसिक्स को सही तरीके से, शुरू से सीखना चाहते हैं।</p>
+      </div>
+      <div class="for-card">
+        <h3>Gulf जॉब की तैयारी करने वाले</h3>
+        <p>जो साइट पर जाने से पहले ड्रॉइंग रीडिंग, calculations और QC के प्रैक्टिकल पहलू मज़बूत करना चाहते हैं।</p>
+      </div>
+      <div class="for-card">
+        <h3>ITI / diploma छात्र</h3>
+        <p>जिन्हें क्लासरूम थ्योरी के अलावा असली फील्ड अनुभव पर आधारित उदाहरण और सवाल-जवाब चाहिए।</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="inside">
+    <div class="sec-head"><span class="eyebrow-num">02</span><h2 class="sec-title">बुक के अंदर क्या है</h2></div>
+    <div class="spec-sheet">
+      <div class="spec-row"><span class="spec-unit">UNIT 1</span><span class="spec-name">फाउंडेशन — बेसिक जानकारी और टूल्स</span><span class="spec-chap">5 chapters · मुफ़्त</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 2</span><span class="spec-name">ड्रॉइंग रीडिंग — Level 1 से 6</span><span class="spec-chap">7 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 3</span><span class="spec-name">पाइप फैब्रिकेशन कैलकुलेशन</span><span class="spec-chap">7 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 4</span><span class="spec-name">टी-ब्रांच, मिटर्ड एल्बो, वाई-ब्रांच</span><span class="spec-chap">7 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 5</span><span class="spec-name">ऑफसेट, फ्लैंज बोल्ट सर्किल और अन्य</span><span class="spec-chap">8 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 6</span><span class="spec-name">स्ट्रक्चरल फैब्रिकेशन — IS 808 बेसिक्स</span><span class="spec-chap">5 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 7</span><span class="spec-name">बीम मार्किंग और नेस्टिंग</span><span class="spec-chap">5 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 8</span><span class="spec-name">QC हैंडओवर और साइट प्रैक्टिस</span><span class="spec-chap">7 chapters</span></div>
+      <div class="spec-row"><span class="spec-unit">UNIT 9</span><span class="spec-name">जॉब रेडी — फाइनल असेसमेंट</span><span class="spec-chap">6 chapters</span></div>
+    </div>
+  </section>
+
+  <section id="author">
+    <div class="sec-head"><span class="eyebrow-num">03</span><h2 class="sec-title">लेखक के बारे में</h2></div>
+    <div class="author-block">
+      <div class="author-plate">IA</div>
+      <div>
+        <h3>Imteyaz Ahmad</h3>
+        <p>25+ साल का मैकेनिकल कंस्ट्रक्शन field experience — हेल्पर से skilled fabricator तक का सफ़र। यह किताब किसी क्लासरूम की थ्योरी नहीं, बल्कि असली साइट पर बरसों के काम से निकली समझ है — जिसमें 2012 की फील्ड नोटबुक के हाथ से बनाए डायग्राम भी शामिल हैं।</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="buy">
+    <div class="sec-head"><span class="eyebrow-num">04</span><h2 class="sec-title">पूरी बुक अनलॉक करें</h2></div>
+    <div class="price-plate">
+      <div class="big">₹499</div>
+      <div class="note">एक बार का भुगतान · लाइफटाइम एक्सेस · Unit 1 अभी मुफ़्त पढ़ें</div>
+      <ul class="lock-list">
+        <li>पूरी 812-पेज डिजिटल फ्लिपबुक (पेज पलटने वाली असली किताब जैसी)</li>
+        <li>सभी 9 Units, 49 chapters — Hindi-English मिक्स में</li>
+        <li>हर chapter में Practical Exercise और Quiz</li>
+        <li>फाइनल असेसमेंट — 50 MCQ + Practical (/100)</li>
+        <li>खरीदने के बाद तुरंत एक्सेस</li>
+      </ul>
+      <a href="#PAYMENT_LINK_YAHAN_DAALEIN" class="btn-buy">₹499 में पूरी बुक खरीदें →</a>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="sec-head"><span class="eyebrow-num">05</span><h2 class="sec-title">अक्सर पूछे जाने वाले सवाल</h2></div>
+    <div class="faq-item"><h3>पेमेंट के बाद बुक कैसे मिलेगी?</h3><p>पेमेंट पूरा होते ही आपको एक्सेस लिंक/पासवर्ड मिल जाएगा जिससे पूरी बुक अनलॉक हो जाएगी।</p></div>
+    <div class="faq-item"><h3>क्या बुक मोबाइल पर पढ़ी जा सकती है?</h3><p>हाँ, बुक मोबाइल, टैबलेट और कंप्यूटर — सभी पर आराम से पढ़ी जा सकती है, कोई अलग ऐप डाउनलोड करने की ज़रूरत नहीं।</p></div>
+    <div class="faq-item"><h3>क्या भाषा पूरी तरह हिंदी में है?</h3><p>बुक Hindi-English मिक्स (Hinglish) में लिखी गई है — जैसी भाषा फील्ड और ITI में आम तौर पर समझी और बोली जाती है।</p></div>
+    <div class="faq-item"><h3>कोई दिक्कत हो तो?</h3><p>नीचे दिए WhatsApp नंबर पर सीधे संपर्क करें — मदद मिलेगी।</p></div>
+  </section>
+
+</div>
+
+<footer>
+  <div>सवाल है? सीधे WhatsApp पर बात करें</div>
+  <a class="wa" href="https://wa.me/966594530639" target="_blank" rel="noopener">+966 594 530 639</a>
+  <div class="fine">IMTEYAZ SKILL HUB · Pipe &amp; Structural Fabrication Course</div>
+</footer>
+
+</div>
+</body>
+</html>
