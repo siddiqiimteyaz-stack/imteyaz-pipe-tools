@@ -188,6 +188,75 @@ th,.ctbl th{font-size:14px!important;padding:9px 8px;}
 .hdr-icon{width:46px;height:46px;background:none!important;border-radius:11px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.45);}
 .hdr-icon img{display:block;width:100%;height:100%;}
 </style>
+<style id="ish-sun">
+/* ☀ धूप मोड — सफ़ेद पीछे, गाढ़े काले अक्षर */
+.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.sunbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:52px;height:46px;padding:0 8px;border-radius:12px;border:1.5px solid #5d86b3;background:#1c3a5c;color:#ffd84d;cursor:pointer;font-family:var(--font);}
+.sunbtn svg{width:22px;height:22px;}
+.sunbtn .sl{font-size:11px;font-weight:700;color:#fff;line-height:1;}
+@media(max-width:430px){.hdr-badge{display:none;}}
+html.sun{--bg:#ffffff;--surface:#f2f5f9;--card:#ffffff;--card2:#e6ecf3;--border:#1c2b3c;--border2:#7a8a9b;--muted:#26354a;--steel:#14202e;--text:#000000;--accent:#0b3d91;--accent2:#0b3d91;--gold:#7a4300;--success:#0a6a38;--danger:#b00020;--orange:#a34100;}
+html.sun body{background:#fff;color:#000;font-weight:600;}
+html.sun .hdr{background:#0b2a4a;border-bottom:3px solid #000;}
+html.sun .hdr-name,html.sun .hdr-sub{color:#fff;}
+html.sun .sunbtn{background:#ffd84d;border-color:#000;color:#000;}
+html.sun .sunbtn .sl{color:#000;}
+html.sun .backbar{background:#e6ecf3;border-bottom:2px solid #000;}
+html.sun .backbar button{color:#000;}
+html.sun .card,html.sun .home-btn,html.sun .info-strip,html.sun .diag-wrap,html.sun .tbl-panel,html.sun .warn-box,html.sun .hi-box,html.sun .res-box,html.sun .metric{background:#fff;border:2px solid #1c2b3c;color:#000;}
+html.sun .home-btn .nm{color:#000;}
+html.sun .home-btn .hi{color:#26354a;}
+html.sun .home-btn .ic{background:#0b2a4a;border-color:#000;color:#fff;}
+html.sun .home-grp{color:#a34100;border-bottom:2px solid #000;}
+html.sun .field input,html.sun .field select{background:#fff;color:#000;border:2px solid #000;font-weight:700;}
+html.sun .field label,html.sun .sec-title,html.sun .card-title{color:#000;}
+html.sun .sec-desc,html.sun .hint,html.sun .res-label,html.sun .metric-label,html.sun .footer{color:#26354a;}
+html.sun .btn{background:#0b3d91;color:#fff;border:2px solid #000;}
+html.sun th,html.sun .ctbl th{background:#e6ecf3;color:#000;border-bottom:2px solid #000;}
+html.sun td,html.sun .ctbl td{color:#000;border-bottom:1px solid #7a8a9b;}
+html.sun tr:nth-child(even) td{background:#f2f5f9;}
+html.sun .formula{background:#f2f5f9;color:#000;border-left:4px solid #0b3d91;}
+html.sun .res-val,html.sun .metric-val,html.sun .hi-val{color:#0b3d91;}
+html.sun [style*="#f9ca24"],html.sun [style*="#f6c90e"],html.sun [style*="#ffd84d"]{color:#7a4300!important;}
+html.sun [style*="#54a0ff"],html.sun [style*="#2e86de"]{color:#0b3d91!important;}
+html.sun [style*="#4a6a85"],html.sun [style*="#8fa8c0"],html.sun [style*="#7f9ab5"],html.sun [style*="#a0aec0"],html.sun [style*="#3a5a7a"]{color:#26354a!important;}
+html.sun [style*="#1dd1a1"]{color:#0a6a38!important;}
+html.sun [style*="#ff6b6b"]{color:#b00020!important;}
+html.sun svg [fill="#f9ca24"],html.sun svg [fill="#f6c90e"]{fill:#7a4300;}
+html.sun svg [stroke="#f9ca24"],html.sun svg [stroke="#f6c90e"]{stroke:#7a4300;}
+html.sun svg [fill="#54a0ff"],html.sun svg [fill="#2e86de"]{fill:#0b3d91;}
+html.sun svg [stroke="#54a0ff"],html.sun svg [stroke="#2e86de"]{stroke:#0b3d91;}
+html.sun svg [fill="#8fa8c0"],html.sun svg [fill="#4a6a85"],html.sun svg [fill="#7f9ab5"]{fill:#14202e;}
+html.sun svg [stroke="#8fa8c0"],html.sun svg [stroke="#4a6a85"],html.sun svg [stroke="#7f9ab5"],html.sun svg [stroke="#3a5a7a"]{stroke:#26354a;}
+html.sun svg [fill="#1dd1a1"]{fill:#0a6a38;}html.sun svg [stroke="#1dd1a1"]{stroke:#0a6a38;}
+html.sun svg text{font-weight:700;}
+html.sun .footer{border-top:2px solid #000;}
+html.sun tr.peak td{background:#fff1b8;color:#000;font-weight:800;}
+html.sun .tag-max{background:#ffd84d;color:#000;font-weight:800;}
+html.sun .tag-min,html.sun .tag-side{background:#cfe8d8;color:#000;font-weight:800;}
+html.sun .tag-cl{background:#cfe0f7;color:#000;font-weight:800;}
+html.sun .sw-tab.active,html.sun .dr-level-btn.active{background:#cfe0f7;color:#000;border-color:#0b3d91;border-width:2px;}
+html.sun .dr-opt.correct{background:#d3f0de;color:#064d27;}
+html.sun .dr-opt.wrong{background:#fbd5da;color:#7a0016;}
+html.sun .dr-lesson-card{background:#fff;color:#000;border:2px solid #1c2b3c;}
+html.sun #fu-checklist-banner,html.sun .hi-box{background:#fff8dc!important;}
+html.sun .hdr-badge{background:#ffd84d;color:#000;border-color:#000;}
+</style>
+<script>
+/* ☀ धूप मोड: पिछली पसंद याद रखता है */
+(function(){try{if(localStorage.getItem('ish_sun')==='1')document.documentElement.classList.add('sun');}catch(e){}})();
+function applySun(on){
+  document.documentElement.classList.toggle('sun',!!on);
+  var b=document.getElementById('sunBtn');
+  if(b){b.setAttribute('aria-pressed',on?'true':'false');var l=b.querySelector('.sl');if(l)l.textContent=on?'रात':'धूप';}
+}
+function toggleSun(){
+  var on=!document.documentElement.classList.contains('sun');
+  applySun(on);
+  try{localStorage.setItem('ish_sun',on?'1':'0');}catch(e){}
+}
+window.addEventListener('DOMContentLoaded',function(){applySun(document.documentElement.classList.contains('sun'));});
+</script>
 </head>
 <body>
 <div class="hdr">
@@ -198,7 +267,10 @@ th,.ctbl th{font-size:14px!important;padding:9px 8px;}
       <div class="hdr-sub">Pipe & Structure — Skill Training & Calculator</div>
     </div>
   </div>
-  <div class="hdr-badge">v6.0 · OFFLINE</div>
+  <div class="hdr-right">
+    <div class="hdr-badge">v7.0 · OFFLINE</div>
+    <button class="sunbtn" id="sunBtn" onclick="toggleSun()" aria-label="धूप मोड" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg><span class="sl">धूप</span></button>
+  </div>
 </div>
 
 <div class="backbar" id="backbar"><button onclick="goHome()">← होम</button></div>
@@ -1091,7 +1163,7 @@ th,.ctbl th{font-size:14px!important;padding:9px 8px;}
   </div>
 
   <div style="text-align:center;margin-top:1rem;font-size:11px;color:var(--muted);line-height:1.8;">
-    <b style="color:var(--steel);">Imteyaz Skill Hub v6.0</b><br>
+    <b style="color:var(--steel);">Imteyaz Skill Hub v7.0</b><br>
     Free for all fabricators — हमेशा free रहेगा<br>
     © Imteyaz Ahmad — All rights reserved
   </div>
@@ -1206,7 +1278,7 @@ function loadBookFrame(){
 </div>
 
 <div class="footer">
-  <span class="brand">IMTEYAZ SKILL HUB v6.0</span>
+  <span class="brand">IMTEYAZ SKILL HUB v7.0</span>
   25+ saal ke field experience se banaya gaya — har fabricator ke liye, bilkul FREE<br>
   <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span>
 </div>
@@ -1650,30 +1722,63 @@ function f_drawFlange(BCD,nb,startDeg){
 // ══════════════════════════════════════
 // TOOL 5 — INCH→OD + ELBOW CENTER
 // ══════════════════════════════════════
+// ── एल्बो सेंटर-टू-एंड: पूरे ऐप में सिर्फ़ यही एक तालिका (ASME B16.9 / B16.28, mm) ──
+// lr90 = 90° लॉन्ग रेडियस (1.5×NPS)   lr45 = 45° लॉन्ग रेडियस   sr90 = 90° शॉर्ट रेडियस (null = इस साइज़ में बनता ही नहीं)
+const ELB_STD={
+ '1/2':{lr90:38.1,lr45:15.7,sr90:null},
+ '3/4':{lr90:38.1,lr45:19.1,sr90:null},
+ '1':{lr90:38.1,lr45:22.4,sr90:25.4},
+ '1-1/4':{lr90:47.8,lr45:25.4,sr90:31.8},
+ '1-1/2':{lr90:57.2,lr45:28.4,sr90:38.1},
+ '2':{lr90:76.2,lr45:35.1,sr90:50.8},
+ '2-1/2':{lr90:95.2,lr45:44.4,sr90:63.5},
+ '3':{lr90:114.3,lr45:50.8,sr90:76.2},
+ '3-1/2':{lr90:133.4,lr45:57.2,sr90:88.9},
+ '4':{lr90:152.4,lr45:63.5,sr90:101.6},
+ '5':{lr90:190.5,lr45:79.2,sr90:127.0},
+ '6':{lr90:228.6,lr45:95.2,sr90:152.4},
+ '8':{lr90:304.8,lr45:127.0,sr90:203.2},
+ '10':{lr90:381.0,lr45:158.8,sr90:254.0},
+ '12':{lr90:457.2,lr45:190.5,sr90:304.8},
+ '14':{lr90:533.4,lr45:222.3,sr90:355.6},
+ '16':{lr90:609.6,lr45:254.0,sr90:406.4},
+ '18':{lr90:685.8,lr45:285.8,sr90:457.2},
+ '20':{lr90:762.0,lr45:317.5,sr90:508.0},
+ '24':{lr90:914.4,lr45:381.0,sr90:609.6}
+};
+function elbSR45(e){return e.sr90==null?null:+(e.sr90*Math.tan(Math.PI/8)).toFixed(1);}
+function elbFmt(v){return v==null?'—':v;}
+function parseNPS(t){
+  t=String(t).trim().replace(/["”″]/g,'').replace(/\s+/g,' ');
+  let m=t.match(/^(\d+)[\s-]+(\d+)\/(\d+)$/); if(m) return (+m[1])+(+m[2])/(+m[3]);
+  m=t.match(/^(\d+)\/(\d+)$/); if(m) return (+m[1])/(+m[2]);
+  return parseFloat(t);
+}
 const pipeDB=[
-  {nps:'1/2',in:0.5,od:21.3,s40:2.77,s80:3.73,elb90:38.1,elb45:22.4},
-  {nps:'3/4',in:0.75,od:26.7,s40:2.87,s80:3.91,elb90:38.1,elb45:22.4},
-  {nps:'1',in:1,od:33.4,s40:3.38,s80:4.55,elb90:38.1,elb45:25.4},
-  {nps:'1-1/4',in:1.25,od:42.2,s40:3.56,s80:4.85,elb90:44.5,elb45:28.6},
-  {nps:'1-1/2',in:1.5,od:48.3,s40:3.68,s80:5.08,elb90:50.8,elb45:31.8},
-  {nps:'2',in:2,od:60.3,s40:3.91,s80:5.54,elb90:63.5,elb45:38.1},
-  {nps:'2-1/2',in:2.5,od:73.0,s40:5.16,s80:7.01,elb90:76.2,elb45:47.8},
-  {nps:'3',in:3,od:88.9,s40:5.49,s80:7.62,elb90:88.9,elb45:57.2},
-  {nps:'3-1/2',in:3.5,od:101.6,s40:5.74,s80:8.08,elb90:101.6,elb45:63.5},
-  {nps:'4',in:4,od:114.3,s40:6.02,s80:8.56,elb90:114.3,elb45:69.9},
-  {nps:'5',in:5,od:141.3,s40:6.55,s80:9.53,elb90:139.7,elb45:88.9},
-  {nps:'6',in:6,od:168.3,s40:7.11,s80:10.97,elb90:152.4,elb45:101.6},
-  {nps:'8',in:8,od:219.1,s40:8.18,s80:12.70,elb90:203.2,elb45:127.0},
-  {nps:'10',in:10,od:273.1,s40:9.27,s80:12.70,elb90:254.0,elb45:161.9},
-  {nps:'12',in:12,od:323.9,s40:9.53,s80:12.70,elb90:304.8,elb45:190.5},
-  {nps:'14',in:14,od:355.6,s40:9.53,s80:12.70,elb90:355.6,elb45:222.3},
-  {nps:'16',in:16,od:406.4,s40:9.53,s80:12.70,elb90:406.4,elb45:254.0},
-  {nps:'18',in:18,od:457.2,s40:9.53,s80:12.70,elb90:457.2,elb45:285.8},
-  {nps:'20',in:20,od:508.0,s40:9.53,s80:12.70,elb90:508.0,elb45:317.5},
-  {nps:'24',in:24,od:609.6,s40:9.53,s80:12.70,elb90:609.6,elb45:381.0},
+  {nps:'1/2',in:0.5,od:21.3,s40:2.77,s80:3.73},
+  {nps:'3/4',in:0.75,od:26.7,s40:2.87,s80:3.91},
+  {nps:'1',in:1,od:33.4,s40:3.38,s80:4.55},
+  {nps:'1-1/4',in:1.25,od:42.2,s40:3.56,s80:4.85},
+  {nps:'1-1/2',in:1.5,od:48.3,s40:3.68,s80:5.08},
+  {nps:'2',in:2,od:60.3,s40:3.91,s80:5.54},
+  {nps:'2-1/2',in:2.5,od:73.0,s40:5.16,s80:7.01},
+  {nps:'3',in:3,od:88.9,s40:5.49,s80:7.62},
+  {nps:'3-1/2',in:3.5,od:101.6,s40:5.74,s80:8.08},
+  {nps:'4',in:4,od:114.3,s40:6.02,s80:8.56},
+  {nps:'5',in:5,od:141.3,s40:6.55,s80:9.53},
+  {nps:'6',in:6,od:168.3,s40:7.11,s80:10.97},
+  {nps:'8',in:8,od:219.1,s40:8.18,s80:12.70},
+  {nps:'10',in:10,od:273.1,s40:9.27,s80:15.09},
+  {nps:'12',in:12,od:323.9,s40:10.31,s80:17.48},
+  {nps:'14',in:14,od:355.6,s40:11.13,s80:19.05},
+  {nps:'16',in:16,od:406.4,s40:12.7,s80:21.44},
+  {nps:'18',in:18,od:457.2,s40:14.27,s80:23.83},
+  {nps:'20',in:20,od:508.0,s40:15.09,s80:26.19},
+  {nps:'24',in:24,od:609.6,s40:17.48,s80:30.96},
 ];
+pipeDB.forEach(p=>{const e=ELB_STD[p.nps];p.elb90=e.lr90;p.elb45=e.lr45;});
 function od_init(){
-  let h='<thead><tr><th>NPS"</th><th>OD(mm)</th><th>SCH40</th><th>SCH80</th><th>90°Elb Ctr</th><th>45°Elb Ctr</th></tr></thead><tbody>';
+  let h='<thead><tr><th>NPS"</th><th>OD(mm)</th><th>SCH40</th><th>SCH80</th><th>90° LR</th><th>45° LR</th></tr></thead><tbody>';
   pipeDB.forEach(p=>{h+=`<tr><td style="color:var(--accent2);">${p.nps}"</td><td class="hl">${p.od}</td><td>${p.s40}</td><td>${p.s80}</td><td style="color:var(--gold);">${p.elb90}</td><td style="color:var(--gold);">${p.elb45}</td></tr>`;});
   document.getElementById('od_tbl').innerHTML=h+'</tbody>';
   const sel=document.getElementById('wt_sel');
@@ -1682,15 +1787,14 @@ function od_init(){
 function od_lookup(){
   let v=document.getElementById('od_inp').value.trim().replace(/"/g,'');
   if(!v){document.getElementById('od_res').innerHTML='<div class="empty" style="padding:0.5rem 0;">Size daalein</div>';return;}
-  let num=v;if(v.includes('/'))try{num=eval(v);}catch(e){}
-  num=parseFloat(num);
+  const num=parseNPS(v);
   const p=pipeDB.find(x=>Math.abs(x.in-num)<0.02||x.nps===v);
   if(p){
     document.getElementById('od_res').innerHTML=`<div class="hi-box"><div class="hi-label">${p.nps}" NPS</div><div class="hi-val">${p.od}<span class="hi-unit">mm OD</span></div>
     <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:2.1;">
       SCH40 WT: ${p.s40}mm | SCH80 WT: ${p.s80}mm<br>
-      <span style="color:var(--gold);">90° Elbow Center: ${p.elb90} mm</span><br>
-      <span style="color:var(--gold);">45° Elbow Center: ${p.elb45} mm</span>
+      <span style="color:var(--gold);">90° LR Elbow Center: ${p.elb90} mm</span><br>
+      <span style="color:var(--gold);">45° LR Elbow Center: ${p.elb45} mm</span>
     </div></div>`;
   } else {
     document.getElementById('od_res').innerHTML=`<div class="empty" style="padding:0.5rem 0;color:var(--danger);">⚠ "${v}" nahi mila</div>`;
@@ -1706,9 +1810,9 @@ function wt_show(){
       <tr><td style="color:var(--muted);">SCH 80</td><td style="color:var(--accent2);">WT: ${p.s80}mm</td><td style="color:var(--muted);">ID: ${(p.od-2*p.s80).toFixed(1)}mm</td></tr>
     </table>
     <div style="margin-top:8px;padding:0.55rem 0.8rem;background:var(--bg);border-radius:7px;font-size:11px;">
-      1.5D R = <span style="color:var(--gold);">${(p.od*1.5).toFixed(1)}mm</span> | 3D R = <span style="color:var(--gold);">${(p.od*3).toFixed(1)}mm</span><br>
-      90° Elbow Center = <span style="color:var(--gold);">${p.elb90} mm</span><br>
-      45° Elbow Center = <span style="color:var(--gold);">${p.elb45} mm</span>
+      LR त्रिज्या (1.5×NPS) = <span style="color:var(--gold);">${(p.in*25.4*1.5).toFixed(1)}mm</span> | 3D त्रिज्या (3×NPS) = <span style="color:var(--gold);">${(p.in*25.4*3).toFixed(1)}mm</span><br>
+      90° LR Elbow Center = <span style="color:var(--gold);">${p.elb90} mm</span><br>
+      45° LR Elbow Center = <span style="color:var(--gold);">${p.elb45} mm</span>
     </div></div>`;
 }
 
@@ -2170,25 +2274,7 @@ const boltDB_arr=[
   {nps:'24',bolts:20,bdia:'1-1/4"',bdia_mm:31.8,spanner:50,od:609.6},
 ];
 // Elbow center-to-face (LR 90°, same as pipeDB)
-const elbowTODB=[
-  {nps:'1/2',od:21.3,lr90:38.1,lr45:22.4,sr90:25.4,sr45:10.5},
-  {nps:'3/4',od:26.7,lr90:38.1,lr45:22.4,sr90:31.8,sr45:13.2},
-  {nps:'1',od:33.4,lr90:38.1,lr45:25.4,sr90:38.1,sr45:15.8},
-  {nps:'1-1/2',od:48.3,lr90:50.8,lr45:31.8,sr90:50.8,sr45:21.0},
-  {nps:'2',od:60.3,lr90:63.5,lr45:38.1,sr90:63.5,sr45:26.3},
-  {nps:'2-1/2',od:73.0,lr90:76.2,lr45:47.8,sr90:76.2,sr45:31.6},
-  {nps:'3',od:88.9,lr90:88.9,lr45:57.2,sr90:88.9,sr45:36.8},
-  {nps:'4',od:114.3,lr90:114.3,lr45:69.9,sr90:114.3,sr45:47.4},
-  {nps:'6',od:168.3,lr90:152.4,lr45:101.6,sr90:168.3,sr45:69.7},
-  {nps:'8',od:219.1,lr90:203.2,lr45:127.0,sr90:219.1,sr45:90.8},
-  {nps:'10',od:273.1,lr90:254.0,lr45:161.9,sr90:273.1,sr45:113.2},
-  {nps:'12',od:323.9,lr90:304.8,lr45:190.5,sr90:323.9,sr45:134.2},
-  {nps:'14',od:355.6,lr90:355.6,lr45:222.3,sr90:355.6,sr45:147.3},
-  {nps:'16',od:406.4,lr90:406.4,lr45:254.0,sr90:406.4,sr45:168.4},
-  {nps:'18',od:457.2,lr90:457.2,lr45:285.8,sr90:457.2,sr45:189.4},
-  {nps:'20',od:508.0,lr90:508.0,lr45:317.5,sr90:508.0,sr45:210.5},
-  {nps:'24',od:609.6,lr90:609.6,lr45:381.0,sr90:609.6,sr45:252.6},
-];
+const elbowTODB=pipeDB.map(p=>{const e=ELB_STD[p.nps];return {nps:p.nps,in:p.in,od:p.od,lr90:e.lr90,lr45:e.lr45,sr90:e.sr90,sr45:elbSR45(e)};});
 function bd_init(){
   const s1=document.getElementById('bd_nps'),s2=document.getElementById('et_nps');
   boltDB_arr.forEach(p=>{const o=document.createElement('option');o.value=p.nps;o.textContent=p.nps+'"';s1.appendChild(o);});
@@ -2220,18 +2306,21 @@ function bd_show(){
 function et_show(){
   const nps=document.getElementById('et_nps').value;
   const p=elbowTODB.find(x=>x.nps===nps);if(!p)return;
+  const small=p.in<=1.5;
   document.getElementById('et_out').innerHTML=`
     <div style="margin-top:0.75rem;">
       <div class="metrics4">
-        <div class="res-box"><div class="res-label">LR 90° Take-off</div><div class="res-val">${p.lr90}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">LR 45° Take-off</div><div class="res-val">${p.lr45}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">SR 90° Take-off</div><div class="res-val">${p.sr90}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">SR 45° Take-off</div><div class="res-val">${p.sr45}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">LR 90° Take-off</div><div class="res-val">${elbFmt(p.lr90)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">LR 45° Take-off</div><div class="res-val">${elbFmt(p.lr45)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">SR 90° Take-off</div><div class="res-val">${elbFmt(p.sr90)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">SR 45° Take-off</div><div class="res-val">${elbFmt(p.sr45)}<span class="res-unit">mm</span></div></div>
       </div>
       <div class="formula">
-        LR = Long Radius (1.5D) | SR = Short Radius (1D)<br>
-        OD = ${p.od}mm<br>
-        LR center = ${(p.od*1.5).toFixed(1)}mm | SR center = ${p.od}mm
+        LR = लॉन्ग रेडियस (1.5×NPS) | SR = शॉर्ट रेडियस (1×NPS)<br>
+        NPS = नाममात्र साइज़ (OD नहीं) | OD = ${p.od}mm<br>
+        ${small?'इस साइज़ में मानक तालिका का न्यूनतम माप लिया गया है (1.5×NPS से अलग हो सकता है)।<br>':''}
+        ${p.sr90==null?'SR एल्बो इस साइज़ में नहीं बनता।<br>':''}
+        LR 90°, LR 45° = ASME B16.9 | SR 90° = B16.28 | SR 45° = गणना (R × tan 22.5°)
       </div>
     </div>`;
 }
@@ -2688,29 +2777,9 @@ const boltDB={
     '24':  {nb:24,bd:'1-7/8"',bdmm:47.6,stud:390,spanner:75},
   }
 };
-const elbowTOF={
-  '1/2': {lr90:38.1,sr90:25.4,lr45:15.7},
-  '3/4': {lr90:38.1,sr90:25.4,lr45:15.7},
-  '1':   {lr90:38.1,sr90:25.4,lr45:15.7},
-  '1-1/4':{lr90:44.5,sr90:31.8,lr45:18.4},
-  '1-1/2':{lr90:50.8,sr90:38.1,lr45:21.0},
-  '2':   {lr90:63.5,sr90:50.8,lr45:26.3},
-  '2-1/2':{lr90:76.2,sr90:63.5,lr45:31.6},
-  '3':   {lr90:88.9,sr90:76.2,lr45:36.8},
-  '3-1/2':{lr90:101.6,sr90:88.9,lr45:42.1},
-  '4':   {lr90:114.3,sr90:101.6,lr45:47.3},
-  '6':   {lr90:152.4,sr90:127.0,lr45:63.1},
-  '8':   {lr90:203.2,sr90:152.4,lr45:84.2},
-  '10':  {lr90:254.0,sr90:203.2,lr45:105.2},
-  '12':  {lr90:304.8,sr90:254.0,lr45:126.3},
-  '14':  {lr90:355.6,sr90:279.4,lr45:147.3},
-  '16':  {lr90:406.4,sr90:317.5,lr45:168.3},
-  '18':  {lr90:457.2,sr90:355.6,lr45:189.4},
-  '20':  {lr90:508.0,sr90:393.7,lr45:210.4},
-  '24':  {lr90:609.6,sr90:457.2,lr45:252.5},
-};
+const elbowTOF={};pipeDB.forEach(p=>{const e=ELB_STD[p.nps];elbowTOF[p.nps]={in:p.in,lr90:e.lr90,sr90:e.sr90,lr45:e.lr45,sr45:elbSR45(e)};});
 function bd_init(){
-  const npsList=Object.keys(boltDB[150]);
+  const npsList=Object.keys(boltDB[150]).sort((a,b)=>parseNPS(a)-parseNPS(b));
   const bSel=document.getElementById('bd_nps');
   const eSel=document.getElementById('bd_enps');
   npsList.forEach(nps=>{
@@ -2750,12 +2819,12 @@ function bd_elbow(){
   document.getElementById('bd_elbow_out').innerHTML=`
     <div style="margin-top:0.6rem;">
       <div class="metrics4">
-        <div class="res-box"><div class="res-label">90° LR Take-off</div><div class="res-val">${e.lr90}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">90° SR Take-off</div><div class="res-val">${e.sr90}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">45° LR Take-off</div><div class="res-val">${e.lr45}<span class="res-unit">mm</span></div></div>
-        <div class="res-box"><div class="res-label">45° SR Take-off</div><div class="res-val">${(e.sr90*Math.tan(22.5*Math.PI/180)).toFixed(1)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">90° LR Take-off</div><div class="res-val">${elbFmt(e.lr90)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">90° SR Take-off</div><div class="res-val">${elbFmt(e.sr90)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">45° LR Take-off</div><div class="res-val">${elbFmt(e.lr45)}<span class="res-unit">mm</span></div></div>
+        <div class="res-box"><div class="res-label">45° SR Take-off</div><div class="res-val">${elbFmt(e.sr45)}<span class="res-unit">mm</span></div></div>
       </div>
-      <div class="formula">Take-off = Center-to-face distance (ASME B16.9)<br>LR = Long Radius (1.5D) | SR = Short Radius (1D)</div>
+      <div class="formula">Take-off = Center-to-face distance (ASME B16.9)<br>LR = लॉन्ग रेडियस (1.5×NPS) | SR = शॉर्ट रेडियस (1×NPS)<br>${e.sr90==null?'SR एल्बो इस साइज़ में नहीं बनता।':''}</div>
     </div>`;
 }
 
