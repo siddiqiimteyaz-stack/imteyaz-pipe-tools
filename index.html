@@ -241,6 +241,31 @@ html.sun .dr-opt.wrong{background:#fbd5da;color:#7a0016;}
 html.sun .dr-lesson-card{background:#fff;color:#000;border:2px solid #1c2b3c;}
 html.sun #fu-checklist-banner,html.sun .hi-box{background:#fff8dc!important;}
 html.sun .hdr-badge{background:#ffd84d;color:#000;border-color:#000;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:.4rem 0 .6rem;}
+.chip{font-family:var(--font);font-size:15px;font-weight:700;min-width:52px;padding:9px 12px;border-radius:999px;border:2px solid var(--border);background:var(--card2);color:var(--muted);cursor:pointer;}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.chip.ss{border-style:dashed;}
+.chips-act{display:flex;gap:8px;margin-bottom:.2rem;}
+.sc-scroll{overflow:auto;max-width:100%;max-height:70vh;border-radius:10px;}
+.sc-t{border-collapse:separate;border-spacing:0;min-width:100%;}
+.sc-t th,.sc-t td{padding:10px 9px;text-align:right;white-space:nowrap;font-size:16px;border-bottom:1px solid var(--border2);}
+.sc-t th{position:sticky;top:0;background:var(--card2);z-index:2;font-weight:800;font-size:14px;}
+.sc-t td:first-child,.sc-t th:first-child{position:sticky;left:0;text-align:left;background:var(--card2);z-index:3;font-weight:800;border-right:2px solid var(--border);}
+.sc-t td.na{color:var(--muted);opacity:.55;}
+.sc-t td.hl{color:var(--gold);font-weight:800;}
+.sc-t tr.hit td{background:rgba(255,216,77,.16);}
+html.sun .chip{background:#fff;color:#000;border-color:#000;}
+html.sun .chip.on{background:#0b3d91;color:#fff;border-color:#000;}
+html.sun .sc-t th,html.sun .sc-t td:first-child,html.sun .sc-t th:first-child{background:#e6ecf3;color:#000;}
+html.sun .sc-t td{background:#fff;color:#000;border-bottom:1px solid #7a8a9b;}
+html.sun .sc-t td.hl{color:#7a4300;}
+html.sun .sc-t tr.hit td{background:#fff1b8;}
+.backbar{align-items:center;justify-content:space-between;}
+.backbar .shareb{font-family:var(--font);font-size:15px;font-weight:700;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:.55rem .9rem;margin:.25rem .2rem;cursor:pointer;}
+html.sun .backbar .shareb{background:#0b3d91;color:#fff;border:2px solid #000;}
+.ish-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#14202e;color:#fff;border:2px solid #7ab8ff;border-radius:12px;padding:.7rem 1.1rem;font-size:16px;font-weight:700;z-index:999;max-width:88%;text-align:center;}
+html.sun .ish-toast{background:#000;border-color:#ffd84d;}
+.home-tools{display:flex;gap:10px;flex-wrap:wrap;margin:1.4rem 0 .4rem;}
 </style>
 <script>
 /* ☀ धूप मोड: पिछली पसंद याद रखता है */
@@ -268,12 +293,12 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
     </div>
   </div>
   <div class="hdr-right">
-    <div class="hdr-badge">v7.0 · OFFLINE</div>
+    <div class="hdr-badge">v7.2 · OFFLINE</div>
     <button class="sunbtn" id="sunBtn" onclick="toggleSun()" aria-label="धूप मोड" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg><span class="sl">धूप</span></button>
   </div>
 </div>
 
-<div class="backbar" id="backbar"><button onclick="goHome()">← होम</button></div>
+<div class="backbar" id="backbar"><button onclick="goHome()">← होम</button><button class="shareb" id="shareBtn" onclick="ishShare()">शेयर / कॉपी</button></div>
 <div class="main">
 <div class="tool active" id="tab-home">
   <div class="sec-title">कौन सा टूल खोलना है?</div>
@@ -286,6 +311,10 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
     <button class="home-btn" onclick="showTab('reducer')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4v16M3 4l11 4v8L3 20M14 8h7v8h-7"/></svg></span><span class="nm">REDUCER</span><span class="hi">रिड्यूसर</span></button>
     <button class="home-btn" onclick="showTab('flange')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="5.8" r=".9"/><circle cx="12" cy="18.2" r=".9"/><circle cx="5.8" cy="12" r=".9"/><circle cx="18.2" cy="12" r=".9"/></svg></span><span class="nm">FLANGE</span><span class="hi">फ्लैंज</span></button>
     <button class="home-btn" onclick="showTab('offset')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h5l8-10h5M3 21h5l8-10h5"/></svg></span><span class="nm">OFFSET</span><span class="hi">ऑफसेट</span></button>
+  </div>
+  <div class="home-grp">ASME स्टैंडर्ड चार्ट</div>
+  <div class="home-grid">
+    <button class="home-btn" onclick="showTab('sched')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16M3 15h18"/></svg></span><span class="nm">SCHEDULE</span><span class="hi">पाइप शेड्यूल चार्ट</span></button>
   </div>
   <div class="home-grp">कैलकुलेटर</div>
   <div class="home-grid">
@@ -307,9 +336,29 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
     <button class="home-btn" onclick="showTab('connect')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.5 3.5 3.5 14.5 0 18M12 3c-3.5 3.5-3.5 14.5 0 18"/></svg></span><span class="nm">CONNECT</span><span class="hi">संपर्क</span></button>
     <button class="home-btn" onclick="showTab('paid')"><span class="ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1"/></svg></span><span class="nm">PAID</span><span class="hi">पेड कंटेंट</span></button>
   </div>
+  <div class="home-tools"><button class="btn-sm" onclick="ishResetSaved()">सेव किए इनपुट मिटाओ</button></div>
 </div>
 
 <!-- ══ TOOL 1: TEE CUTBACK ══ -->
+<div class="tool" id="tab-sched">
+  <div class="sec-title">PIPE SCHEDULE चार्ट</div>
+  <div class="sec-desc">ASME B36.10M (कार्बन/अलॉय स्टील) और B36.19M (स्टेनलेस) — दीवार की मोटाई, mm में</div>
+  <div class="card">
+    <div class="field"><label>साइज़ खोजिए (इंच)</label><input type="text" id="sc_q" inputmode="text" placeholder="जैसे 6 &nbsp;या&nbsp; 3/4 &nbsp;या&nbsp; 1-1/2" oninput="sc_render()"></div>
+    <div class="card-title" style="margin-top:.4rem;">कौन से शेड्यूल दिखाएं</div>
+    <div class="chips" id="sc_chips"></div>
+    <div class="chips-act"><button class="btn-sm" onclick="sc_all(true)">सब दिखाओ</button><button class="btn-sm" onclick="sc_all(false)">आम वाले</button></div>
+  </div>
+  <div class="tbl-panel"><div class="sc-scroll" id="sc_tbl"></div></div>
+  <div class="formula no-share">
+    OD और घेरा (CF = π × OD) mm में, मानक के इंच वाले OD से निकाले हैं।<br>
+    <b>—</b> का मतलब: ASME मानक में उस साइज़ के लिए वह शेड्यूल है ही नहीं।<br>
+    <b>12" से ऊपर STD ≠ 40 और XS ≠ 80</b> (STD = 9.53, XS = 12.70 ही रहते हैं)। ऐसी संख्या पीले रंग में है।<br>
+    5S / 10S / 40S / 80S स्टेनलेस (B36.19M) के हैं। 10 और 10S बड़े साइज़ में अलग हैं (जैसे 14" में 6.35 और 4.78)।<br>
+    मानक के इंच वाले मान × 25.4 करके mm बनाए गए हैं, इसलिए आख़िरी अंक में 0.01 का फर्क दिख सकता है।
+  </div>
+</div>
+
 <div class="tool" id="tab-cutback">
   <div class="sec-title">TEE BRANCH CUTBACK</div>
   <div class="info-strip" style="margin-bottom:0.5rem;">📐 Standard: <b>ASME B16.9</b> — Factory-Made Wrought Fittings | Cylinder intersection formula</div>
@@ -1163,7 +1212,7 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
   </div>
 
   <div style="text-align:center;margin-top:1rem;font-size:11px;color:var(--muted);line-height:1.8;">
-    <b style="color:var(--steel);">Imteyaz Skill Hub v7.0</b><br>
+    <b style="color:var(--steel);">Imteyaz Skill Hub v7.2</b><br>
     Free for all fabricators — हमेशा free रहेगा<br>
     © Imteyaz Ahmad — All rights reserved
   </div>
@@ -1278,7 +1327,7 @@ function loadBookFrame(){
 </div>
 
 <div class="footer">
-  <span class="brand">IMTEYAZ SKILL HUB v7.0</span>
+  <span class="brand">IMTEYAZ SKILL HUB v7.2</span>
   25+ saal ke field experience se banaya gaya — har fabricator ke liye, bilkul FREE<br>
   <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span>
 </div>
@@ -1293,7 +1342,8 @@ function showTab(id,btn,fromPop){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
-  document.getElementById('backbar').style.display=(id==='home')?'none':'block';
+  document.getElementById('backbar').style.display=(id==='home')?'none':'flex';
+  var sb=document.getElementById('shareBtn');if(sb)sb.style.display=['book','connect','paid','drawing','fitup'].indexOf(id)>=0?'none':'';
   window.scrollTo(0,0);
   if(!fromPop&&id!=='home')history.pushState({t:id},'');
   // Auto-unlock if password saved
@@ -1303,6 +1353,112 @@ function showTab(id,btn,fromPop){
       paidShowContent();
     }
   }
+}
+
+
+// ── पाइप शेड्यूल चार्ट की स्क्रीन ──
+const SC_DEFAULT=['s10','std','s40','xs','s80','s160','xxs'];
+let SC_SEL=new Set(SC_DEFAULT);
+function sc_init(){
+  try{const sv=JSON.parse(localStorage.getItem('ish_sc_sel')||'null');if(Array.isArray(sv)&&sv.length)SC_SEL=new Set(sv.filter(k=>SC_COLS.some(c=>c[0]===k)));}catch(e){}
+  if(!SC_SEL.size)SC_SEL=new Set(SC_DEFAULT);
+  const box=document.getElementById('sc_chips');if(!box)return;
+  box.innerHTML=SC_COLS.map(c=>`<button class="chip${c[0].endsWith('S')&&c[0]!=='xs'?' ss':''}" data-k="${c[0]}" onclick="sc_toggle('${c[0]}')">${c[1]}</button>`).join('');
+  sc_render();
+}
+function sc_toggle(k){
+  if(SC_SEL.has(k)){if(SC_SEL.size>1)SC_SEL.delete(k);}else SC_SEL.add(k);
+  try{localStorage.setItem('ish_sc_sel',JSON.stringify([...SC_SEL]));}catch(e){}
+  sc_render();
+}
+function sc_all(all){
+  SC_SEL=new Set(all?SC_COLS.map(c=>c[0]):SC_DEFAULT);
+  try{localStorage.setItem('ish_sc_sel',JSON.stringify([...SC_SEL]));}catch(e){}
+  sc_render();
+}
+function sc_render(){
+  const q=((document.getElementById('sc_q')||{}).value||'').trim();
+  const qn=q?parseNPS(q):NaN;
+  document.querySelectorAll('#sc_chips .chip').forEach(b=>b.classList.toggle('on',SC_SEL.has(b.dataset.k)));
+  const cols=SC_COLS.filter(c=>SC_SEL.has(c[0]));
+  let rows=Object.keys(SCHED).sort((a,b)=>parseNPS(a)-parseNPS(b));
+  if(q){rows=rows.filter(n=>(!isNaN(qn)&&Math.abs(parseNPS(n)-qn)<0.001)||n.indexOf(q)===0);}
+  let h='<table class="sc-t"><thead><tr><th>इंच</th><th>OD</th><th>CF</th>'+cols.map(c=>'<th>'+c[1]+'</th>').join('')+'</tr></thead><tbody>';
+  if(!rows.length)h+='<tr><td colspan="'+(3+cols.length)+'" style="text-align:center;">इस साइज़ का चार्ट नहीं मिला</td></tr>';
+  rows.forEach(n=>{
+    const e=SCHED[n];
+    h+='<tr><td>'+n+'"</td><td>'+(Math.round(e.od*100+1e-6)/100).toFixed(2)+'</td><td>'+(Math.PI*e.od).toFixed(1)+'</td>';
+    cols.forEach(c=>{
+      const v=e[c[0]];
+      const diff=(c[0]==='std'||c[0]==='xs')&&v!=null&&((c[0]==='std'&&e.s40!=null&&Math.abs(e.s40-v)>0.005)||(c[0]==='xs'&&e.s80!=null&&Math.abs(e.s80-v)>0.005));
+      h+=v==null?'<td class="na">—</td>':'<td'+(diff?' class="hl"':'')+'>'+v.toFixed(2)+'</td>';
+    });
+    h+='</tr>';
+  });
+  document.getElementById('sc_tbl').innerHTML=h+'</tbody></table>';
+}
+
+
+// ── भाग 3: आख़िरी डाली संख्याएं याद रखना ──
+function ishSaveable(el){
+  if(!el||!el.id||el.id==='sc_q')return false;
+  if(/pw|pass/i.test(el.id))return false;
+  var t=(el.type||'').toLowerCase();
+  return !(t==='password'||t==='file'||t==='button'||t==='submit'||t==='checkbox'||t==='radio');
+}
+function ishOnEdit(e){
+  var el=e.target;
+  if(el&&el.closest&&el.closest('.tool')&&ishSaveable(el)){try{localStorage.setItem('ish_v_'+el.id,el.value);}catch(_){}}
+}
+document.addEventListener('input',ishOnEdit,true);
+document.addEventListener('change',ishOnEdit,true);
+function ishRestore(){
+  try{
+    document.querySelectorAll('.tool input[id],.tool select[id]').forEach(function(el){
+      if(!ishSaveable(el))return;
+      var v=localStorage.getItem('ish_v_'+el.id);
+      if(v===null||v===el.value)return;
+      if(el.tagName==='SELECT'&&![].some.call(el.options,function(o){return o.value===v;}))return;
+      el.value=v;
+      try{el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}catch(_){}
+    });
+  }catch(_){}
+}
+function ishResetSaved(){
+  try{Object.keys(localStorage).filter(function(k){return k.indexOf('ish_v_')===0;}).forEach(function(k){localStorage.removeItem(k);});}catch(_){}
+  ishToast('सेव किए इनपुट मिट गए');
+  setTimeout(function(){location.reload();},900);
+}
+// ── भाग 3: नतीजा शेयर / कॉपी ──
+function ishToast(m){
+  var d=document.createElement('div');d.className='ish-toast';d.textContent=m;document.body.appendChild(d);
+  setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},2200);
+}
+function ishText(){
+  var t=document.querySelector('.tool.active');if(!t)return '';
+  var L=[];var ti=t.querySelector('.sec-title');
+  L.push('IMTEYAZ SKILL HUB — '+(ti?ti.textContent.trim():''));
+  t.querySelectorAll('.field').forEach(function(f){
+    var lab=f.querySelector('label'),inp=f.querySelector('input,select');
+    if(!lab||!inp||!ishSaveable(inp))return;
+    var v=inp.tagName==='SELECT'?((inp.options[inp.selectedIndex]||{}).text||''):inp.value;
+    if(v)L.push(lab.textContent.trim()+': '+v);
+  });
+  t.querySelectorAll('.res-box,.metric,.hi-box').forEach(function(b){var x=b.innerText.replace(/\s+/g,' ').trim();if(x)L.push(x);});
+  t.querySelectorAll('.formula:not(.no-share)').forEach(function(b){var x=b.innerText.replace(/\n+/g,' · ').trim();if(x)L.push(x);});
+  t.querySelectorAll('table').forEach(function(tb){
+    var cd=tb.closest('.card');var ct=cd?cd.querySelector('.card-title'):null;
+    if(ct&&/reference/i.test(ct.textContent))return;
+    var rows=[].slice.call(tb.querySelectorAll('tr'),0,61).map(function(r){return [].map.call(r.children,function(c){return c.innerText.replace(/\s+/g,' ').trim();}).join(' | ');});
+    if(rows.length)L.push(rows.join('\n'));
+  });
+  return L.join('\n');
+}
+async function ishShare(){
+  var text=ishText();
+  if(!text||text.split('\n').length<2){ishToast('शेयर करने लायक नतीजा नहीं है');return;}
+  try{if(navigator.share){await navigator.share({title:'IMTEYAZ SKILL HUB',text:text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+  try{await navigator.clipboard.writeText(text);ishToast('कॉपी हो गया');}catch(e){ishToast('कॉपी नहीं हो पाया');}
 }
 
 function goHome(){showTab('home');}
@@ -1754,6 +1910,38 @@ function parseNPS(t){
   m=t.match(/^(\d+)\/(\d+)$/); if(m) return (+m[1])/(+m[2]);
   return parseFloat(t);
 }
+// ── पाइप शेड्यूल: दीवार की मोटाई mm में — ASME B36.10M (कार्बन/अलॉय) और B36.19M (स्टेनलेस S-शेड्यूल) ──
+// null = ASME में उस साइज़ के लिए वह शेड्यूल है ही नहीं। 5S/10S: B36.19M (≤24" और 30"), 40S/80S: ≤24"।
+const SCHED={
+ '1/2':{od:21.336,s5S:1.65,s10S:2.11,s40S:2.77,s80S:3.73,s10:2.11,s20:null,s30:2.41,std:2.77,s40:2.77,s60:null,xs:3.73,s80:3.73,s100:null,s120:null,s140:null,s160:4.78,xxs:7.47},
+ '3/4':{od:26.67,s5S:1.65,s10S:2.11,s40S:2.87,s80S:3.91,s10:2.11,s20:null,s30:2.41,std:2.87,s40:2.87,s60:null,xs:3.91,s80:3.91,s100:null,s120:null,s140:null,s160:5.56,xxs:7.82},
+ '1':{od:33.401,s5S:1.65,s10S:2.77,s40S:3.38,s80S:4.55,s10:2.77,s20:null,s30:2.9,std:3.38,s40:3.38,s60:null,xs:4.55,s80:4.55,s100:null,s120:null,s140:null,s160:6.35,xxs:9.09},
+ '1-1/4':{od:42.164,s5S:1.65,s10S:2.77,s40S:3.56,s80S:4.85,s10:2.77,s20:null,s30:2.97,std:3.56,s40:3.56,s60:null,xs:4.85,s80:4.85,s100:null,s120:null,s140:null,s160:6.35,xxs:9.7},
+ '1-1/2':{od:48.26,s5S:1.65,s10S:2.77,s40S:3.68,s80S:5.08,s10:2.77,s20:null,s30:3.18,std:3.68,s40:3.68,s60:null,xs:5.08,s80:5.08,s100:null,s120:null,s140:null,s160:7.14,xxs:10.16},
+ '2':{od:60.325,s5S:1.65,s10S:2.77,s40S:3.91,s80S:5.54,s10:2.77,s20:null,s30:3.18,std:3.91,s40:3.91,s60:null,xs:5.54,s80:5.54,s100:null,s120:null,s140:null,s160:8.74,xxs:11.07},
+ '2-1/2':{od:73.025,s5S:2.11,s10S:3.05,s40S:5.16,s80S:7.01,s10:3.05,s20:null,s30:4.78,std:5.16,s40:5.16,s60:null,xs:7.01,s80:7.01,s100:null,s120:null,s140:null,s160:9.53,xxs:14.02},
+ '3':{od:88.9,s5S:2.11,s10S:3.05,s40S:5.49,s80S:7.62,s10:3.05,s20:null,s30:4.78,std:5.49,s40:5.49,s60:null,xs:7.62,s80:7.62,s100:null,s120:null,s140:null,s160:11.13,xxs:15.24},
+ '3-1/2':{od:101.6,s5S:2.11,s10S:3.05,s40S:5.74,s80S:8.08,s10:3.05,s20:null,s30:4.78,std:5.74,s40:5.74,s60:null,xs:8.08,s80:8.08,s100:null,s120:null,s140:null,s160:null,xxs:16.15},
+ '4':{od:114.3,s5S:2.11,s10S:3.05,s40S:6.02,s80S:8.56,s10:3.05,s20:null,s30:4.78,std:6.02,s40:6.02,s60:null,xs:8.56,s80:8.56,s100:null,s120:11.13,s140:null,s160:13.49,xxs:17.12},
+ '5':{od:141.3,s5S:2.77,s10S:3.4,s40S:6.55,s80S:9.53,s10:3.4,s20:null,s30:null,std:6.55,s40:6.55,s60:null,xs:9.53,s80:9.53,s100:null,s120:12.7,s140:null,s160:15.88,xxs:19.05},
+ '6':{od:168.275,s5S:2.77,s10S:3.4,s40S:7.11,s80S:10.97,s10:3.4,s20:null,s30:null,std:7.11,s40:7.11,s60:null,xs:10.97,s80:10.97,s100:null,s120:14.27,s140:null,s160:18.26,xxs:21.95},
+ '8':{od:219.075,s5S:2.77,s10S:3.76,s40S:8.18,s80S:12.7,s10:3.76,s20:6.35,s30:7.04,std:8.18,s40:8.18,s60:10.31,xs:12.7,s80:12.7,s100:15.09,s120:18.26,s140:20.62,s160:23.01,xxs:22.23},
+ '10':{od:273.05,s5S:3.4,s10S:4.19,s40S:9.27,s80S:12.7,s10:4.19,s20:6.35,s30:7.8,std:9.27,s40:9.27,s60:12.7,xs:12.7,s80:15.09,s100:18.26,s120:21.44,s140:25.4,s160:28.58,xxs:25.4},
+ '12':{od:323.85,s5S:3.96,s10S:4.57,s40S:9.53,s80S:12.7,s10:4.57,s20:6.35,s30:8.38,std:9.53,s40:10.31,s60:14.27,xs:12.7,s80:17.48,s100:21.44,s120:25.4,s140:28.58,s160:33.32,xxs:25.4},
+ '14':{od:355.6,s5S:3.96,s10S:4.78,s40S:9.53,s80S:12.7,s10:6.35,s20:7.92,s30:9.53,std:9.53,s40:11.13,s60:15.09,xs:12.7,s80:19.05,s100:23.83,s120:27.79,s140:31.75,s160:35.71,xxs:null},
+ '16':{od:406.4,s5S:4.19,s10S:4.78,s40S:9.53,s80S:12.7,s10:6.35,s20:7.92,s30:9.53,std:9.53,s40:12.7,s60:16.66,xs:12.7,s80:21.44,s100:26.19,s120:30.96,s140:36.53,s160:40.49,xxs:null},
+ '18':{od:457.2,s5S:4.19,s10S:4.78,s40S:9.53,s80S:12.7,s10:6.35,s20:7.92,s30:11.13,std:9.53,s40:14.27,s60:19.05,xs:12.7,s80:23.83,s100:29.36,s120:34.93,s140:39.67,s160:45.24,xxs:null},
+ '20':{od:508.0,s5S:4.78,s10S:5.54,s40S:9.53,s80S:12.7,s10:6.35,s20:9.53,s30:12.7,std:9.53,s40:15.09,s60:20.62,xs:12.7,s80:26.19,s100:32.54,s120:38.1,s140:44.45,s160:50.01,xxs:null},
+ '22':{od:558.8,s5S:4.78,s10S:5.54,s40S:9.53,s80S:12.7,s10:6.35,s20:9.53,s30:12.7,std:9.53,s40:null,s60:22.23,xs:12.7,s80:28.58,s100:34.93,s120:41.28,s140:47.63,s160:53.98,xxs:null},
+ '24':{od:609.6,s5S:5.54,s10S:6.35,s40S:9.53,s80S:12.7,s10:6.35,s20:9.53,s30:14.27,std:9.53,s40:17.48,s60:24.61,xs:12.7,s80:30.96,s100:38.89,s120:46.02,s140:52.37,s160:59.54,xxs:null},
+ '26':{od:660.4,s5S:null,s10S:null,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:null,std:9.53,s40:null,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null},
+ '28':{od:711.2,s5S:null,s10S:null,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:15.88,std:9.53,s40:null,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null},
+ '30':{od:762.0,s5S:6.35,s10S:7.92,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:15.88,std:9.53,s40:null,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null},
+ '32':{od:812.8,s5S:null,s10S:null,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:15.88,std:9.53,s40:17.48,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null},
+ '34':{od:863.6,s5S:null,s10S:null,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:15.88,std:9.53,s40:17.48,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null},
+ '36':{od:914.4,s5S:null,s10S:null,s40S:null,s80S:null,s10:7.92,s20:12.7,s30:15.88,std:9.53,s40:19.05,s60:null,xs:12.7,s80:null,s100:null,s120:null,s140:null,s160:null,xxs:null}
+};
+const SC_COLS=[['s5S','5S'],['s10S','10S'],['s40S','40S'],['s80S','80S'],['s10','10'],['s20','20'],['s30','30'],['std','STD'],['s40','40'],['s60','60'],['xs','XS'],['s80','80'],['s100','100'],['s120','120'],['s140','140'],['s160','160'],['xxs','XXS']];
 const pipeDB=[
   {nps:'1/2',in:0.5,od:21.3,s40:2.77,s80:3.73},
   {nps:'3/4',in:0.75,od:26.7,s40:2.87,s80:3.91},
@@ -1776,7 +1964,7 @@ const pipeDB=[
   {nps:'20',in:20,od:508.0,s40:15.09,s80:26.19},
   {nps:'24',in:24,od:609.6,s40:17.48,s80:30.96},
 ];
-pipeDB.forEach(p=>{const e=ELB_STD[p.nps];p.elb90=e.lr90;p.elb45=e.lr45;});
+pipeDB.forEach(p=>{const e=ELB_STD[p.nps];p.elb90=e.lr90;p.elb45=e.lr45;const sc=SCHED[p.nps];if(sc){p.s40=sc.s40;p.s80=sc.s80;}});
 function od_init(){
   let h='<thead><tr><th>NPS"</th><th>OD(mm)</th><th>SCH40</th><th>SCH80</th><th>90° LR</th><th>45° LR</th></tr></thead><tbody>';
   pipeDB.forEach(p=>{h+=`<tr><td style="color:var(--accent2);">${p.nps}"</td><td class="hl">${p.od}</td><td>${p.s40}</td><td>${p.s80}</td><td style="color:var(--gold);">${p.elb90}</td><td style="color:var(--gold);">${p.elb45}</td></tr>`;});
@@ -4171,7 +4359,7 @@ window.addEventListener('appinstalled',()=>{document.getElementById('installBtn'
 function installApp(){if(dP){dP.prompt();dP.userChoice.then(()=>{dP=null;});}}
 
 window.onload=()=>{
-  od_init();f_initNPS();
+  od_init();sc_init();f_initNPS();
   pw_initNPS();bd_init();cv_buildRefTable();
   c_update();c_calc();
   off_calc();
@@ -4181,6 +4369,7 @@ window.onload=()=>{
   fuRenderList();
   jrRenderList('m5', m5Data);
   jrRenderList('m6', m6Data);
+  ishRestore();
 };
 </script>
 <script>
