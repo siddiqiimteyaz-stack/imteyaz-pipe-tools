@@ -1,11 +1,11 @@
-// IMTEYAZ SKILL HUB — service worker
-// Purpose: makes the site installable as an app and lets it load offline
-// after the first visit. Uses a simple "network first, fallback to cache"
-// strategy so you always get the latest version when online, and the
-// last-seen version when offline.
+// IMTEYAZ SKILL HUB — service worker (v2)
+// हर बार सर्वर से पूछता है कि फाइल बदली है या नहीं (no-cache), इसलिए GitHub पर नई फाइल डालते ही
+// ऐप में बदलाव दिखता है। नेट न हो तो आख़िरी देखा हुआ वर्शन चलता है।
+// हर बार बड़ा बदलाव डालें तो नीचे का नंबर बढ़ा दें (v2 -> v3 ...)।
 
-const CACHE_NAME = "imteyaz-skill-hub-v1";
+const CACHE_NAME = "imteyaz-skill-hub-v2";
 const CORE_FILES = [
+  "./",
   "./index.html",
   "./book.html",
   "./manifest.json",
@@ -13,40 +13,46 @@ const CORE_FILES = [
   "./icon-512.png"
 ];
 
-// On install: pre-cache the core app files
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_FILES))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(CORE_FILES.map((u) =>
+        fetch(new Request(u, { cache: "reload" }))
+          .then((r) => (r.ok ? cache.put(u, r) : null))
+          .catch(() => null)
+      ))
+    )
   );
   self.skipWaiting();
 });
 
-// On activate: clean up old caches if the version number ever changes
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((names) =>
-      Promise.all(
-        names
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      )
-    )
+      Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// On fetch: try the network first (so updates show up), fall back to the
-// cache if offline, and save every successful response for next time.
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") return;
+  const req = event.request;
+  if (req.method !== "GET") return;
+  const sameOrigin = new URL(req.url).origin === self.location.origin;
+
+  // अपनी साइट की फाइलें: हमेशा सर्वर से ताज़ा जांचकर लो (HTTP cache की देरी नहीं)
+  const network = sameOrigin
+    ? fetch(new Request(req.url, { cache: "no-cache", credentials: "same-origin" }))
+    : fetch(req);
 
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
+    network
+      .then((res) => {
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(req, copy)).catch(() => {});
+        }
+        return res;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
   );
 });

@@ -268,6 +268,11 @@ html.sun .ish-toast{background:#000;border-color:#ffd84d;}
 .home-tools{display:flex;gap:10px;flex-wrap:wrap;margin:1.4rem 0 .4rem;}
 </style>
 <script>
+/* ═══ मास्टर स्विच ═══
+   true  = सब कुछ फ्री: कोई ताला/पासवर्ड नहीं (Play Store वर्शन के लिए)
+   false = पुराने ताले वापस (किताब Unit 2-9, PAID टैब, Level 5-6, Module 5-6)
+   बदलना हो तो book.html में भी यही स्विच बदलें। */
+const ISH_FREE = true;
 /* ☀ धूप मोड: पिछली पसंद याद रखता है */
 (function(){try{if(localStorage.getItem('ish_sun')==='1')document.documentElement.classList.add('sun');}catch(e){}})();
 function applySun(on){
@@ -293,7 +298,7 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
     </div>
   </div>
   <div class="hdr-right">
-    <div class="hdr-badge">v7.2 · OFFLINE</div>
+    <div class="hdr-badge">v7.4 · OFFLINE</div>
     <button class="sunbtn" id="sunBtn" onclick="toggleSun()" aria-label="धूप मोड" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg><span class="sl">धूप</span></button>
   </div>
 </div>
@@ -1212,7 +1217,7 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
   </div>
 
   <div style="text-align:center;margin-top:1rem;font-size:11px;color:var(--muted);line-height:1.8;">
-    <b style="color:var(--steel);">Imteyaz Skill Hub v7.2</b><br>
+    <b style="color:var(--steel);">Imteyaz Skill Hub v7.4</b><br>
     Free for all fabricators — हमेशा free रहेगा<br>
     © Imteyaz Ahmad — All rights reserved
   </div>
@@ -1327,7 +1332,7 @@ function loadBookFrame(){
 </div>
 
 <div class="footer">
-  <span class="brand">IMTEYAZ SKILL HUB v7.2</span>
+  <span class="brand">IMTEYAZ SKILL HUB v7.4</span>
   25+ saal ke field experience se banaya gaya — har fabricator ke liye, bilkul FREE<br>
   <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span>
 </div>
@@ -1349,7 +1354,7 @@ function showTab(id,btn,fromPop){
   // Auto-unlock if password saved
   if(id==='paid'){
     const saved = localStorage.getItem('ish_paid_pw');
-    if(saved && PAID_PASSWORDS.includes(saved)){
+    if(ISH_FREE || (saved && PAID_PASSWORDS.includes(saved))){
       paidShowContent();
     }
   }
@@ -1459,6 +1464,50 @@ async function ishShare(){
   if(!text||text.split('\n').length<2){ishToast('शेयर करने लायक नतीजा नहीं है');return;}
   try{if(navigator.share){await navigator.share({title:'IMTEYAZ SKILL HUB',text:text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
   try{await navigator.clipboard.writeText(text);ishToast('कॉपी हो गया');}catch(e){ishToast('कॉपी नहीं हो पाया');}
+}
+
+
+// ── फ्री मोड: ताले खोलना (ISH_FREE = true हो तभी चलता है) ──
+function ishApplyFree(){
+  if(!ISH_FREE)return;
+  try{
+    document.documentElement.classList.add('free');
+    var set=function(id,fn,html){var b=document.getElementById(id);if(!b)return;b.classList.remove('paid-btn');b.setAttribute('onclick',fn);b.innerHTML=html;};
+    var sm='<br><span style="font-size:9px;font-weight:400;">';
+    set('dr-l5-btn','drShowLevel(5)','📐 Level 5'+sm+'Isometric Drawing</span>');
+    set('dr-l6-btn','drShowLevel(6)','🏗 Level 6'+sm+'Structural Drawing</span>');
+    set('jr-m5-btn','jrShowModule(5)','🔍 Module 5'+sm+'QC & Inspection</span>');
+    set('jr-m6-btn','jrShowModule(6)','🛬 Module 6'+sm+'Gulf/Site Life</span>');
+    // PAID टैब -> अतिरिक्त सामग्री
+    var t=document.querySelector('#tab-paid .sec-title');if(t)t.textContent='📚 अतिरिक्त सामग्री';
+    var d=document.querySelector('#tab-paid .sec-desc');if(d)d.textContent='Imteyaz Skill Hub — वीडियो, PDF और बाकी सामग्री, सबके लिए फ्री';
+    var lk=document.getElementById('paid-lock');if(lk)lk.style.display='none';
+    var lb=document.querySelector('#paid-content button[onclick="paidLock()"]');if(lb)lb.style.display='none';
+    document.querySelectorAll('#paid-content div').forEach(function(x){if(x.children.length===0&&x.textContent.indexOf('Unlocked')>=0)x.textContent='📚 सारी सामग्री फ्री है';});
+    // होम स्क्रीन की टाइल और शीर्षक
+    document.querySelectorAll('.home-grp').forEach(function(g){if(g.textContent.indexOf('पेड')>=0)g.textContent='संपर्क और सामग्री';});
+    var tile=document.querySelector('.home-btn[onclick*="paid"]');
+    if(tile){
+      var nm=tile.querySelector('.nm'),hi=tile.querySelector('.hi'),ic=tile.querySelector('.ic');
+      if(nm)nm.textContent='EXTRA';if(hi)hi.textContent='और सामग्री';
+      if(ic)ic.innerHTML='<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+      // सामग्री की सूची खाली हो तो टाइल न दिखे
+      var n0=0;try{n0=+(localStorage.getItem('ish_extra_n')||0);}catch(e){}
+      tile.style.display=n0>0?'':'none';
+      try{
+        fetch(PAID_SHEET_CSV).then(function(r){return r.text();}).then(function(csv){
+          var rows=csv.trim().split('\n').slice(1).filter(function(x){return x.trim();});
+          try{localStorage.setItem('ish_extra_n',String(rows.length));}catch(e){}
+          tile.style.display=rows.length?'':'none';
+        }).catch(function(){});
+      }catch(e){}
+    }
+    // किताब वाले टैब का लेख
+    var bp=document.querySelector('#tab-book .card p');
+    if(bp)bp.innerHTML='असली किताब जैसा digital experience — page पलटकर पढ़िए। सभी 9 Units पूरी free हैं।';
+    // संपर्क वाले टैब की लाइन
+    document.querySelectorAll('#tab-connect div').forEach(function(x){if(x.children.length===0&&x.textContent.indexOf('Paid course')>=0)x.textContent='+966 594 530 639 — Training और जानकारी के लिए';});
+  }catch(e){console.log('free mode skipped',e);}
 }
 
 function goHome(){showTab('home');}
@@ -4057,6 +4106,7 @@ function fuResetChecks(){
 })();
 
 function showPaywall(){
+  if(ISH_FREE) return;
   document.getElementById('paywall-overlay').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
@@ -4370,12 +4420,22 @@ window.onload=()=>{
   jrRenderList('m5', m5Data);
   jrRenderList('m6', m6Data);
   ishRestore();
+  ishApplyFree();
 };
 </script>
 <script>
 if ('serviceWorker' in navigator) {
+  var ishHadCtl = !!navigator.serviceWorker.controller;
+  // नया वर्शन आते ही एक बार अपने आप ताज़ा हो जाए (पहली बार इंस्टॉल पर नहीं)
+  navigator.serviceWorker.addEventListener('controllerchange', function() {
+    if (!ishHadCtl) return;
+    try { if (sessionStorage.getItem('ish_swr')) return; sessionStorage.setItem('ish_swr','1'); } catch(e) {}
+    location.reload();
+  });
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js').catch(function(err) {
+    navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+      try { reg.update(); } catch(e) {}   // हर बार ऐप खुलने पर नए वर्शन की जांच
+    }).catch(function(err) {
       console.log('Service worker registration failed:', err);
     });
   });
