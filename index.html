@@ -266,6 +266,7 @@ html.sun .backbar .shareb{background:#0b3d91;color:#fff;border:2px solid #000;}
 .ish-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#14202e;color:#fff;border:2px solid #7ab8ff;border-radius:12px;padding:.7rem 1.1rem;font-size:16px;font-weight:700;z-index:999;max-width:88%;text-align:center;}
 html.sun .ish-toast{background:#000;border-color:#ffd84d;}
 .home-tools{display:flex;gap:10px;flex-wrap:wrap;margin:1.4rem 0 .4rem;}
+.privlink{display:inline-block;margin-top:.7rem;padding:.55rem .9rem;font-size:15px;font-weight:700;color:var(--accent2);text-decoration:underline;}
 </style>
 <script>
 /* ═══ मास्टर स्विच ═══
@@ -298,7 +299,7 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
     </div>
   </div>
   <div class="hdr-right">
-    <div class="hdr-badge">v7.4 · OFFLINE</div>
+    <div class="hdr-badge">v7.5 · OFFLINE</div>
     <button class="sunbtn" id="sunBtn" onclick="toggleSun()" aria-label="धूप मोड" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg><span class="sl">धूप</span></button>
   </div>
 </div>
@@ -1217,7 +1218,7 @@ window.addEventListener('DOMContentLoaded',function(){applySun(document.document
   </div>
 
   <div style="text-align:center;margin-top:1rem;font-size:11px;color:var(--muted);line-height:1.8;">
-    <b style="color:var(--steel);">Imteyaz Skill Hub v7.4</b><br>
+    <b style="color:var(--steel);">Imteyaz Skill Hub v7.5</b><br>
     Free for all fabricators — हमेशा free रहेगा<br>
     © Imteyaz Ahmad — All rights reserved
   </div>
@@ -1332,9 +1333,10 @@ function loadBookFrame(){
 </div>
 
 <div class="footer">
-  <span class="brand">IMTEYAZ SKILL HUB v7.4</span>
+  <span class="brand">IMTEYAZ SKILL HUB v7.5</span>
   25+ saal ke field experience se banaya gaya — har fabricator ke liye, bilkul FREE<br>
-  <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span>
+  <span style="color:var(--border);font-size:10px;">Offline · No internet · Any device</span><br>
+  <a class="privlink" href="privacy.html">गोपनीयता नीति · Privacy Policy</a>
 </div>
 
 <script>
